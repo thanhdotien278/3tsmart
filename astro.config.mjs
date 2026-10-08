@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://3tsmart.vn',
+  site: process.env.SITE_URL || 'https://3tsmart.org',
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'auto' },
   compressHTML: true,

@@ -25,7 +25,7 @@ Sự kiện được đẩy vào `dataLayer`: `generate_lead`, `form_error`, `cl
 
 ## Sửa nội dung
 
-Toàn bộ nội dung nằm trong `src/data/site.ts`. Các mục đánh dấu `PLACEHOLDER` **phải thay bằng thông tin thật trước khi go-live**: tên pháp lý, MST, hotline, Zalo, Messenger, email, địa chỉ, số liệu thống kê, sản phẩm/giá, dự án, đánh giá khách hàng, mạng xã hội.
+Toàn bộ nội dung nằm trong `src/data/site.ts`. Các mục đánh dấu `PLACEHOLDER` **phải thay bằng thông tin thật trước khi go-live**: tên pháp lý, Messenger, số liệu thống kê, sản phẩm/giá, dự án, đánh giá khách hàng, mạng xã hội.
 
 Ảnh trong `src/assets/photos/` là ảnh minh họa tạm từ Unsplash – nên thay bằng ảnh công trình/sản phẩm thật của 3tsmart. Logo: `src/assets/brand/logo.png`, icon trong `public/`.
 

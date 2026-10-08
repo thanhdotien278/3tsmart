@@ -5,7 +5,7 @@
  * rồi đặt URL nhận được vào biến môi trường PUBLIC_LEAD_ENDPOINT.
  */
 const SHEET_NAME = 'Leads';
-const NOTIFY_EMAIL = ''; // ví dụ 'sales@3tsmart.vn' để nhận email khi có lead mới
+const NOTIFY_EMAIL = ''; // ví dụ 'sales@3tsmart.org' để nhận email khi có lead mới
 const FIELDS = ['submittedAt', 'name', 'phone', 'email', 'projectType', 'note', 'page', 'referrer',
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'ttclid'];
 

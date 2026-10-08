@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://3tsmart.vn/sitemap-index.xml
+Sitemap: https://3tsmart.org/sitemap-index.xml

@@ -20,19 +20,20 @@ import prjOffice from '../assets/photos/prj-office.jpg';
 import prjLiving from '../assets/photos/prj-living.jpg';
 import prjStairs from '../assets/photos/prj-stairs.jpg';
 
-// PLACEHOLDER: thông tin liên hệ & pháp lý
+// Thông tin liên hệ & pháp lý. PLACEHOLDER còn lại: legalName, messenger, social.
 export const company = {
   brand: '3tsmart',
   legalName: 'Công ty TNHH Công nghệ 3T Smart',
-  taxId: '0100000000',
+  taxId: '6000916516',
   slogan: 'Nhà thông minh – Tiện nghi hơn, an toàn hơn',
-  hotline: '0909 000 000',
-  hotlineTel: '+84909000000',
-  zalo: 'https://zalo.me/0909000000',
+  hotline: '0985 834 566',
+  hotlineTel: '+84985834566',
+  zalo: 'https://zalo.me/0985834566',
   messenger: 'https://m.me/3tsmart',
-  email: 'lienhe@3tsmart.vn',
-  address: 'Số 1 Đường Smart, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội',
-  mapQuery: 'Cầu Giấy, Hà Nội',
+  email: 'lienhe@3tsmart.org',
+  address: 'Số 26 phố Dịch Vọng Hậu, phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội',
+  postalAddress: { street: 'Số 26 phố Dịch Vọng Hậu', locality: 'Phường Dịch Vọng Hậu, Cầu Giấy', region: 'Hà Nội' },
+  mapQuery: 'Số 26 phố Dịch Vọng Hậu, phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Vietnam',
   hours: 'Thứ 2 – Thứ 7: 8:00 – 18:00 · Chủ nhật: 8:30 – 12:00',
   social: {
     facebook: 'https://facebook.com/3tsmart',

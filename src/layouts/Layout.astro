@@ -17,7 +17,7 @@ const {
   schema = false,
 } = Astro.props;
 
-const site = Astro.site ?? new URL('https://3tsmart.vn');
+const site = Astro.site ?? new URL('https://3tsmart.org');
 const canonical = new URL(path, site).toString();
 const ogImage = new URL('/og-image.jpg', site).toString();
 const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
@@ -36,7 +36,7 @@ const jsonLd = schema
         telephone: company.hotlineTel,
         email: company.email,
         taxID: company.taxId,
-        address: { '@type': 'PostalAddress', streetAddress: company.address, addressCountry: 'VN' },
+        address: { '@type': 'PostalAddress', streetAddress: company.postalAddress.street, addressLocality: company.postalAddress.locality, addressRegion: company.postalAddress.region, addressCountry: 'VN' },
         openingHours: ['Mo-Sa 08:00-18:00', 'Su 08:30-12:00'],
         priceRange: '$$',
         sameAs: Object.values(company.social),
