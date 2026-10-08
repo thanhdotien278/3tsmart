@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { diagram } from '../data/site';
+const first = diagram.hotspots[0];
+---
+<section class="section relative isolate overflow-hidden bg-navy-950" aria-labelledby="diagram-title" data-diagram>
+  <div class="grid-bg absolute inset-0 -z-10 opacity-60"></div>
+  <div class="container-x">
+    <SectionHeading id="diagram-title" dark eyebrow="Trải nghiệm" title="Khám phá một phòng khách thông minh" lead="Chạm vào các điểm sáng để xem thiết bị được lắp ở đâu và hoạt động như thế nào." />
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_340px]" data-reveal>
+      <div class="relative overflow-hidden rounded-3xl border border-white/10">
+        <Picture src={diagram.image} formats={['avif', 'webp']} widths={[640, 960, 1400]} sizes="(min-width:1024px) 860px, 92vw" alt="Phòng khách liên thông bếp với các điểm lắp thiết bị nhà thông minh" class="aspect-[3/2] w-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-navy-950/25"></div>
+        {diagram.hotspots.map((h, i) => (
+          <button type="button" data-hotspot={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls="hotspot-info" aria-label={`${h.title}: xem chi tiết`}
+            class="group absolute grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full" style={`left:${h.x}%;top:${h.y}%`}>
+            <span class="absolute inset-1.5 rounded-full bg-brand-400/60 motion-safe:animate-pulse-ring"></span>
+            <span class="relative grid size-7 place-items-center rounded-full border-2 border-white bg-brand-400 text-navy-950 shadow-glow transition group-hover:scale-110 group-aria-pressed:bg-accent-500 sm:size-8">
+              <Icon name="Plus" class="size-4" strokeWidth={3} />
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div id="hotspot-info" class="rounded-3xl border border-brand-400/30 bg-navy-900 p-6 text-white shadow-glow" aria-live="polite">
+          <span data-info-icon class="grid size-12 place-items-center rounded-2xl bg-brand-400 text-navy-950">
+            {diagram.hotspots.map((h, i) => <span data-icon-for={i} hidden={i !== 0}><Icon name={h.icon} class="size-6" /></span>)}
+          </span>
+          <h3 data-info-title class="mt-4 text-xl text-white">{first.title}</h3>
+          <p data-info-text class="mt-2 text-slate-300">{first.text}</p>
+        </div>
+        <ul class="grid grid-cols-2 gap-2 text-sm">
+          {diagram.hotspots.map((h, i) => (
+            <li>
+              <button type="button" data-hotspot-list={i} class="flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-left text-slate-300 transition hover:border-brand-400/50 hover:text-white aria-pressed:border-brand-400 aria-pressed:bg-brand-400/10 aria-pressed:text-white" aria-pressed={i === 0 ? 'true' : 'false'}>
+                <Icon name={h.icon} class="size-4 shrink-0 text-brand-400" />{h.title}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <script type="application/json" id="hotspot-data" set:html={JSON.stringify(diagram.hotspots.map(({ title, text }) => ({ title, text })))} />
+  </div>
+</section>

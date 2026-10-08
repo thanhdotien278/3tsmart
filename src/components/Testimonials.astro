@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { testimonials } from '../data/site';
+const initials = (n: string) => n.replace(/^(Anh|Chị|Ông|Bà|Cô|Chú)\s+/i, '').split(' ').slice(-2).map((w) => w[0]).join('');
+---
+<section id="danh-gia" class="section bg-surface" aria-labelledby="reviews-title">
+  <div class="container-x">
+    <SectionHeading id="reviews-title" center eyebrow="Khách hàng nói gì" title="Được tin dùng bởi các gia đình & doanh nghiệp" />
+    <ul class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {testimonials.map((t, i) => (
+        <li class="card flex flex-col p-6 sm:p-7" data-reveal style={`--d:${i * 70}ms`}>
+          <figure class="flex flex-1 flex-col">
+            <div class="flex items-center justify-between">
+              <div class="flex gap-0.5 text-accent-500" role="img" aria-label={`Đánh giá ${t.rating} trên 5 sao`}>
+                {Array.from({ length: 5 }).map((_, k) => <Icon name="Star" class:list={['size-5', k < t.rating ? 'fill-current' : 'text-slate-300']} />)}
+              </div>
+              <Icon name="Quote" class="size-8 text-brand-100" />
+            </div>
+            <blockquote class="mt-4 flex-1 text-[17px] leading-relaxed text-ink">“{t.text}”</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3 border-t border-line pt-5">
+              <span class="grid size-12 place-items-center rounded-full bg-gradient-to-br from-brand-400 to-brand-700 font-bold text-white" aria-hidden="true">{initials(t.name)}</span>
+              <span>
+                <span class="block font-bold text-navy-900">{t.name}</span>
+                <span class="block text-sm text-muted">{t.project}</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

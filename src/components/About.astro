@@ -1,0 +1,48 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { about, stats } from '../data/site';
+---
+<section id="gioi-thieu" class="section" aria-labelledby="about-title">
+  <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <div class="relative order-2 lg:order-1" data-reveal>
+      <div class="grid grid-cols-5 gap-4">
+        <Picture src={about.images[0]} formats={['avif', 'webp']} widths={[400, 640, 900]} sizes="(min-width:1024px) 360px, 58vw" pictureAttributes={{ class: 'col-span-3 block' }} alt="Kỹ thuật viên 3tsmart đang lắp đặt và kiểm tra thiết bị" class=" aspect-[3/4] w-full rounded-3xl object-cover shadow-card" loading="lazy" />
+        <div class="col-span-2 flex flex-col gap-4 pt-10">
+          <Picture src={about.images[1]} formats={['avif', 'webp']} widths={[300, 500]} sizes="(min-width:1024px) 240px, 38vw" pictureAttributes={{ class: 'block' }} alt="Khóa cửa thông minh được mở bằng ứng dụng trên điện thoại" class="aspect-square w-full rounded-3xl object-cover shadow-card" loading="lazy" />
+          <div class="rounded-3xl bg-navy-900 p-5 text-white">
+            <p class="text-4xl font-bold text-brand-400">{stats[0].value}{stats[0].suffix}</p>
+            <p class="mt-1 text-sm text-slate-300">năm đồng hành cùng các gia đình Việt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <SectionHeading id="about-title" eyebrow="Về 3tsmart" title="Đưa công nghệ thông minh vào từng ngôi nhà Việt" />
+      <div class="mt-5 space-y-4 text-lg text-muted" data-reveal>
+        <p>{about.story}</p>
+        <p>{about.mission}</p>
+      </div>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-3">
+        {about.values.map((v, i) => (
+          <li class="card p-5" data-reveal style={`--d:${i * 70}ms`}>
+            <span class="grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon name={v.icon} class="size-5" /></span>
+            <h3 class="mt-4 text-lg">{v.title}</h3>
+            <p class="mt-1 text-[15px] leading-relaxed text-muted">{v.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-x mt-16" data-reveal>
+    <p class="text-center text-sm font-semibold uppercase tracking-wider text-muted">Tương thích hệ sinh thái & chuẩn kết nối</p>
+    <ul class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      {about.partners.map((p) => (
+        <li class="rounded-full border border-line bg-surface px-5 py-2.5 text-base font-semibold text-slate-700">{p}</li>
+      ))}
+    </ul>
+  </div>
+</section>

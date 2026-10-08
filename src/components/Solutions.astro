@@ -1,0 +1,55 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { solutions } from '../data/site';
+---
+<section id="giai-phap" class="section" aria-labelledby="solutions-title">
+  <div class="container-x">
+    <SectionHeading id="solutions-title" eyebrow="Giải pháp" title="Giải pháp theo từng không gian sống" lead="Mỗi loại công trình có nhu cầu khác nhau. 3tsmart thiết kế gói thiết bị phù hợp diện tích, thói quen và ngân sách của bạn." />
+
+    <div class="mt-10" data-tabs>
+      <div class="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+        <div role="tablist" aria-label="Chọn loại công trình" class="flex w-max gap-2 rounded-2xl bg-surface p-1.5 sm:w-auto">
+          {solutions.map((s, i) => (
+            <button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`panel-${s.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} class="flex min-h-12 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-4 text-[15px] font-semibold text-muted transition hover:text-navy-900 aria-selected:bg-white aria-selected:text-brand-700 aria-selected:shadow-card sm:px-5">
+              <Icon name={s.icon} class="size-5" />{s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {solutions.map((s, i) => (
+        <div role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} tabindex="0" hidden={i !== 0} class="mt-8 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+          <div class="relative overflow-hidden rounded-3xl">
+            <Picture src={s.image} formats={['avif', 'webp']} widths={[480, 800, 1100]} sizes="(min-width:1024px) 600px, 92vw" alt={`Không gian ${s.label.toLowerCase()} ứng dụng giải pháp nhà thông minh`} class="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+            <span class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-sm font-semibold text-navy-900 backdrop-blur"><Icon name={s.icon} class="size-4 text-brand-700" />{s.label}</span>
+          </div>
+          <div class="flex flex-col justify-center">
+            <h3 class="text-2xl sm:text-3xl">{s.title}</h3>
+            <p class="mt-3 text-lg text-muted">{s.desc}</p>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-wider text-navy-900">Thiết bị gợi ý</p>
+                <ul class="mt-3 space-y-2 text-[15px] text-ink">
+                  {s.devices.map((d) => <li class="flex items-start gap-2"><Icon name="Check" class="mt-1 size-4 shrink-0 text-brand-700" strokeWidth={2.5} />{d}</li>)}
+                </ul>
+              </div>
+              <div>
+                <p class="text-sm font-bold uppercase tracking-wider text-navy-900">Lợi ích chính</p>
+                <ul class="mt-3 space-y-2 text-[15px] text-ink">
+                  {s.benefits.map((b) => <li class="flex items-start gap-2"><Icon name="Zap" class="mt-1 size-4 shrink-0 text-accent-600" />{b}</li>)}
+                </ul>
+              </div>
+            </div>
+            <div class="mt-8">
+              <a href="#lien-he" data-project-type={s.formValue} data-track="cta_click" data-track-label={`solution-${s.id}`} class="btn-primary">
+                Nhận báo giá cho {s.label.toLowerCase()} <Icon name="ArrowRight" class="size-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

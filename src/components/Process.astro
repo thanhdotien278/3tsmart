@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { process } from '../data/site';
+---
+<section id="quy-trinh" class="section bg-surface" aria-labelledby="process-title">
+  <div class="container-x">
+    <SectionHeading id="process-title" center eyebrow="Quy trình" title="5 bước để ngôi nhà “thông minh” hơn" lead="Rõ ràng từ đầu đến cuối – bạn luôn biết việc gì đang diễn ra và chi phí bao nhiêu." />
+    <ol class="relative mt-14 grid gap-8 lg:grid-cols-5 lg:gap-6">
+      <span class="absolute left-7 top-7 h-[calc(100%-3.5rem)] w-0.5 bg-gradient-to-b from-brand-400 to-brand-100 lg:left-[10%] lg:right-[10%] lg:top-7 lg:h-0.5 lg:w-auto lg:bg-gradient-to-r" aria-hidden="true"></span>
+      {process.map((s, i) => (
+        <li class="relative flex gap-5 lg:flex-col lg:items-center lg:text-center" data-reveal style={`--d:${i * 80}ms`}>
+          <span class="relative z-10 grid size-14 shrink-0 place-items-center rounded-2xl border-4 border-surface bg-navy-900 text-brand-400 shadow-card">
+            <Icon name={s.icon} class="size-6" />
+            <span class="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-accent-500 text-xs font-bold text-navy-950">{i + 1}</span>
+          </span>
+          <div class="lg:mt-5">
+            <h3 class="text-lg">{s.title}</h3>
+            <p class="mt-1.5 text-[15px] text-muted">{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

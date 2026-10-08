@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro';
+import DeviceArt from './DeviceArt.astro';
+import SectionHeading from './SectionHeading.astro';
+import { categories, bestSellers, productTabs } from '../data/site';
+const catGroup: Record<string, string> = {
+  'cong-tac': 'dien', 'chieu-sang': 'dien', 'khoa-cua': 'an-ninh', camera: 'an-ninh', 'cam-bien': 'an-ninh',
+  rem: 'tien-nghi', 'hong-ngoai': 'tien-nghi', 'trung-tam': 'tien-nghi',
+};
+---
+<section id="san-pham" class="section bg-surface" aria-labelledby="products-title">
+  <div class="container-x">
+    <SectionHeading id="products-title" eyebrow="Sản phẩm" title="Danh mục thiết bị nhà thông minh" lead="Đầy đủ thiết bị cho mọi không gian, kết nối chung một ứng dụng. Chọn nhóm sản phẩm để xem chi tiết hoặc hỏi giá nhanh." />
+
+    <ul class="mt-12 grid gap-5 min-[480px]:grid-cols-2 lg:grid-cols-4">
+      {categories.map((c, i) => (
+        <li class="card card-hover group flex flex-col overflow-hidden" data-reveal style={`--d:${(i % 4) * 60}ms`}>
+          <div class="relative bg-gradient-to-br from-brand-50 via-white to-white px-6 pt-6">
+            <DeviceArt kind={c.art} class="mx-auto h-36 w-auto transition duration-300 group-hover:scale-105" label={`Minh hoạ ${c.name}`} />
+            <span class="absolute left-4 top-4 grid size-10 place-items-center rounded-xl bg-white text-brand-700 shadow-card"><Icon name={c.icon} class="size-5" /></span>
+          </div>
+          <div class="flex flex-1 flex-col p-5">
+            <h3 class="text-lg leading-snug">{c.name}</h3>
+            <p class="mt-2 flex-1 text-[15px] leading-relaxed text-muted">{c.desc}</p>
+            <div class="mt-5 flex gap-2">
+              <a href="#ban-chay" data-filter-go={catGroup[c.id]} data-track="view_product" data-track-label={c.name} class="btn-outline flex-1 !px-3 text-sm">Xem chi tiết</a>
+              <a href="#lien-he" data-ask={c.name} class="btn-ghost !px-3 text-sm">Hỏi giá</a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div id="ban-chay" class="mt-20 scroll-mt-24">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div data-reveal>
+          <h3 class="text-2xl sm:text-3xl">Sản phẩm bán chạy</h3>
+          <p class="mt-2 text-muted">Được khách hàng 3tsmart lựa chọn nhiều nhất trong tháng.</p>
+        </div>
+        <div class="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none]" data-reveal>
+          <div class="flex w-max gap-2 rounded-2xl bg-white p-1.5 shadow-card" role="group" aria-label="Lọc theo nhóm sản phẩm">
+            {productTabs.map((t, i) => (
+              <button type="button" data-filter={t.id} aria-pressed={i === 0 ? 'true' : 'false'} class="min-h-11 cursor-pointer whitespace-nowrap rounded-xl px-4 text-sm font-semibold text-muted transition hover:text-navy-900 aria-pressed:bg-navy-900 aria-pressed:text-white">
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <ul class="mt-8 grid gap-5 min-[480px]:grid-cols-2 lg:grid-cols-4" id="product-grid" aria-live="polite">
+        {bestSellers.map((p, i) => (
+          <li data-group={p.group} class="card card-hover flex flex-col overflow-hidden" data-reveal style={`--d:${(i % 4) * 60}ms`}>
+            <div class="relative bg-surface px-6 pt-5">
+              {p.badge && (
+                <span class:list={['absolute left-3 top-3 rounded-full px-2.5 py-1 text-xs font-bold', p.badge.includes('%') ? 'bg-accent-500 text-navy-950' : p.badge === 'Mới' ? 'bg-navy-900 text-white' : 'bg-brand-700 text-white']}>{p.badge}</span>
+              )}
+              <DeviceArt kind={p.art} class="mx-auto h-36 w-auto" label={p.name} />
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h4 class="text-base font-bold leading-snug text-navy-900">{p.name}</h4>
+              <ul class="mt-3 flex-1 space-y-1.5 text-sm text-muted">
+                {p.specs.map((s) => <li class="flex items-start gap-2"><Icon name="Check" class="mt-0.5 size-4 shrink-0 text-brand-700" strokeWidth={2.5} />{s}</li>)}
+              </ul>
+              <div class="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4">
+                <p><span class="sr-only">Giá: </span><span class="text-lg font-bold text-brand-700">{p.price}</span></p>
+                <a href="#lien-he" data-ask={p.name} data-track="view_product" data-track-label={p.name} class="btn-primary !min-h-11 !px-4 text-sm">Hỏi giá</a>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-16 grid items-center gap-6 overflow-hidden rounded-3xl bg-navy-900 p-6 text-white sm:p-10 lg:grid-cols-[1fr_auto]" data-reveal>
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
+        <div class="flex shrink-0 gap-3">
+          <span class="grid size-14 place-items-center rounded-2xl bg-brand-400/15 text-brand-400"><Icon name="Mic" class="size-7" /></span>
+          <span class="grid size-14 place-items-center rounded-2xl bg-brand-400/15 text-brand-400"><Icon name="Smartphone" class="size-7" /></span>
+        </div>
+        <div>
+          <h3 class="text-xl text-white sm:text-2xl">Điều khiển bằng giọng nói & ứng dụng di động</h3>
+          <p class="mt-1 text-slate-300">Tương thích Google Home, Amazon Alexa và ứng dụng của hãng – tiếng Việt, dễ dùng cho cả ông bà, trẻ nhỏ.</p>
+        </div>
+      </div>
+      <a href="#lien-he" class="btn-primary" data-track="cta_click" data-track-label="voice-banner">Tư vấn hệ sinh thái phù hợp</a>
+    </div>
+  </div>
+</section>

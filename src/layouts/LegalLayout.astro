@@ -1,0 +1,26 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Floating from '../components/Floating.astro';
+interface Props { title: string; description: string; path: string; updated?: string }
+const { title, description, path, updated = '08/10/2026' } = Astro.props;
+---
+<Layout title={`${title} | 3tsmart`} description={description} path={path}>
+  <Header home={false} />
+  <main id="main" class="bg-surface pt-16 lg:pt-[72px]">
+    <div class="container-x py-12 sm:py-16">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted"><a href="/" class="font-semibold text-brand-700 hover:underline">Trang chủ</a> <span aria-hidden="true">/</span> {title}</nav>
+      <article class="mt-6 max-w-3xl rounded-3xl bg-white p-6 shadow-card sm:p-10 [&_h2]:mt-8 [&_h2]:text-xl [&_li]:mt-1.5 [&_p]:mt-3 [&_p]:text-muted [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:text-muted">
+        <h1 class="text-3xl sm:text-4xl">{title}</h1>
+        <p class="!mt-2 text-sm">Cập nhật lần cuối: {updated}</p>
+        <slot />
+      </article>
+    </div>
+  </main>
+  <Footer home={false} />
+  <Floating home={false} />
+</Layout>
+<script>
+  import '../scripts/main';
+</script>

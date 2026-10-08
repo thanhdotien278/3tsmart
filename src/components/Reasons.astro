@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { reasons } from '../data/site';
+---
+<section id="ly-do" class="section" aria-labelledby="reasons-title">
+  <div class="container-x">
+    <SectionHeading id="reasons-title" center eyebrow="Lý do chọn chúng tôi" title="Vì sao hàng nghìn gia đình chọn 3tsmart?" lead="Không chỉ bán thiết bị – chúng tôi chịu trách nhiệm để hệ thống của bạn chạy ổn định nhiều năm." />
+    <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {reasons.map((r, i) => (
+        <li class="card card-hover group relative overflow-hidden p-6 sm:p-7" data-reveal style={`--d:${(i % 3) * 70}ms`}>
+          <span class="absolute -right-8 -top-8 size-28 rounded-full bg-brand-50 transition duration-300 group-hover:scale-125"></span>
+          <span class="relative grid size-13 place-items-center rounded-2xl bg-navy-900 text-brand-400"><Icon name={r.icon} class="size-6" /></span>
+          <h3 class="relative mt-5 text-xl">{r.title}</h3>
+          <p class="relative mt-2 text-muted">{r.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

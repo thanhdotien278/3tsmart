@@ -1,0 +1,21 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { company } from '../data/site';
+---
+<LegalLayout title="Chính sách bảo mật" description="Chính sách bảo vệ dữ liệu cá nhân của 3tsmart theo Nghị định 13/2023/NĐ-CP." path="/chinh-sach-bao-mat">
+  <p>{company.legalName} (“3tsmart”) tôn trọng và bảo vệ dữ liệu cá nhân của khách hàng theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân.</p>
+  <h2>1. Dữ liệu chúng tôi thu thập</h2>
+  <ul><li>Họ tên, số điện thoại, email (nếu có), loại hình công trình và nội dung nhu cầu bạn gửi qua form.</li><li>Dữ liệu kỹ thuật ẩn danh: trang đã xem, nguồn truy cập (UTM), thiết bị – chỉ khi bạn đồng ý cookie phân tích.</li></ul>
+  <h2>2. Mục đích xử lý</h2>
+  <ul><li>Liên hệ tư vấn, khảo sát, báo giá và chăm sóc sau bán hàng.</li><li>Cải thiện website và đo lường hiệu quả quảng cáo.</li></ul>
+  <h2>3. Thời gian lưu trữ</h2>
+  <p>Dữ liệu được lưu tối đa 24 tháng kể từ lần liên hệ gần nhất hoặc cho đến khi bạn yêu cầu xóa.</p>
+  <h2>4. Chia sẻ dữ liệu</h2>
+  <p>3tsmart không bán hay cho thuê dữ liệu cá nhân. Dữ liệu chỉ được chia sẻ với nhân viên phụ trách và nhà cung cấp dịch vụ kỹ thuật (lưu trữ, email) có cam kết bảo mật, hoặc theo yêu cầu của cơ quan nhà nước có thẩm quyền.</p>
+  <h2>5. Quyền của bạn</h2>
+  <ul><li>Được biết, truy cập, chỉnh sửa, rút lại sự đồng ý và yêu cầu xóa dữ liệu.</li><li>Phản đối hoặc hạn chế xử lý dữ liệu; khiếu nại theo quy định pháp luật.</li></ul>
+  <h2>6. Cookie</h2>
+  <p>Website chỉ dùng cookie phân tích/quảng cáo sau khi bạn bấm “Đồng ý” trên thông báo cookie. Bạn có thể xóa cookie trong trình duyệt bất kỳ lúc nào.</p>
+  <h2>7. Liên hệ</h2>
+  <p>Mọi yêu cầu về dữ liệu cá nhân vui lòng gửi về <a class="font-semibold text-brand-700 underline" href={`mailto:${company.email}`}>{company.email}</a> hoặc hotline <a class="font-semibold text-brand-700 underline" href={`tel:${company.hotlineTel}`}>{company.hotline}</a>.</p>
+</LegalLayout>

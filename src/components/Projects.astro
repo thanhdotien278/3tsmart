@@ -1,0 +1,48 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { projects } from '../data/site';
+const large = await Promise.all(projects.map((p) => getImage({ src: p.image, width: 1600, format: 'webp', quality: 78 })));
+---
+<section id="du-an" class="section" aria-labelledby="projects-title">
+  <div class="container-x">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <SectionHeading id="projects-title" eyebrow="Dự án" title="Dự án tiêu biểu đã triển khai" lead="Hơn một nghìn công trình từ căn hộ, nhà phố đến biệt thự và khách sạn. Bấm vào ảnh để xem lớn." />
+      <a href="#lien-he" class="btn-outline shrink-0" data-track="cta_click" data-track-label="projects">Tư vấn dự án của bạn</a>
+    </div>
+
+    <ul class="mt-10 grid auto-rows-[220px] gap-4 sm:grid-cols-2 lg:auto-rows-[240px] lg:grid-cols-4">
+      {projects.map((p, i) => (
+        <li class:list={['group relative overflow-hidden rounded-3xl', i === 0 && 'sm:col-span-2 sm:row-span-2', i === 5 && 'lg:col-span-2']} data-reveal style={`--d:${(i % 4) * 60}ms`}>
+          <button type="button" data-lightbox={i} data-src={large[i].src} data-caption={`${p.name} – ${p.type}, ${p.location}`} data-devices={p.devices} class="absolute inset-0 h-full w-full cursor-zoom-in text-left" aria-label={`Phóng to ảnh dự án ${p.name}`}>
+            <Picture src={p.image} formats={['avif', 'webp']} widths={[400, 700, 1000]} sizes={i === 0 ? '(min-width:1024px) 640px, (min-width:640px) 92vw, 92vw' : '(min-width:1024px) 320px, (min-width:640px) 46vw, 92vw'} alt={`Dự án ${p.name} tại ${p.location}`} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+            <span class="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent"></span>
+            <span class="absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-white/90 text-navy-900 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100"><Icon name="ZoomIn" class="size-5" /></span>
+            <span class="absolute inset-x-0 bottom-0 p-5">
+              <span class="inline-block rounded-full bg-brand-400 px-2.5 py-0.5 text-xs font-bold text-navy-950">{p.type}</span>
+              <span class="mt-2 block text-lg font-bold text-white">{p.name}</span>
+              <span class="mt-0.5 block text-sm text-slate-200">{p.location} · {p.devices}</span>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <dialog id="lightbox" class="m-auto h-dvh max-h-none w-screen max-w-none bg-transparent p-0 backdrop:bg-navy-950/95" aria-label="Xem ảnh dự án">
+    <div class="flex h-full w-full flex-col items-center justify-center gap-4 p-4 sm:p-8">
+      <figure class="flex max-h-full w-full max-w-6xl flex-col items-center">
+        <img data-lb-img alt="" class="max-h-[75dvh] w-auto max-w-full rounded-2xl object-contain shadow-2xl" />
+        <figcaption class="mt-4 text-center text-white">
+          <span data-lb-caption class="block text-lg font-semibold"></span>
+          <span data-lb-devices class="mt-1 block text-sm text-slate-300"></span>
+          <span data-lb-count class="mt-1 block text-xs text-slate-400"></span>
+        </figcaption>
+      </figure>
+      <button type="button" data-lb-prev class="absolute left-2 top-1/2 grid size-12 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6" aria-label="Ảnh trước"><Icon name="ChevronLeft" class="size-6" /></button>
+      <button type="button" data-lb-next class="absolute right-2 top-1/2 grid size-12 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6" aria-label="Ảnh tiếp theo"><Icon name="ChevronRight" class="size-6" /></button>
+      <button type="button" data-lb-close class="absolute right-3 top-3 grid size-12 cursor-pointer place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6" aria-label="Đóng"><Icon name="X" class="size-6" /></button>
+    </div>
+  </dialog>
+</section>

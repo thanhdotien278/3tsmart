@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+
+@theme {
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand – lấy từ logo 3tsmart (#0CC6FA) */
+  --color-brand-50: #eaf8fe;
+  --color-brand-100: #cdf0fd;
+  --color-brand-200: #9de3fb;
+  --color-brand-300: #5fd4fb;
+  --color-brand-400: #0cc6fa; /* màu logo – dùng cho đồ hoạ & nền tối */
+  --color-brand-500: #05a9d9;
+  --color-brand-600: #0389b4;
+  --color-brand-700: #036a99; /* chữ/link trên nền trắng (5.96:1) */
+  --color-brand-800: #06537a;
+  --color-brand-900: #0a4363;
+
+  --color-navy-700: #1a3350;
+  --color-navy-800: #12263d;
+  --color-navy-900: #0b1b2e;
+  --color-navy-950: #07111f;
+
+  --color-accent-300: #ffb36b;
+  --color-accent-400: #ff9a3d;
+  --color-accent-500: #ff8a1f; /* CTA – luôn đi với chữ navy (8:1) */
+  --color-accent-600: #f07400;
+
+  --color-ink: #1e293b;
+  --color-muted: #475569;
+  --color-surface: #f4f8fb;
+  --color-line: #e2e8f0;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -8px rgb(15 23 42 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.06), 0 22px 40px -16px rgb(3 106 153 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(12 198 250 / 0.25), 0 10px 40px -10px rgb(12 198 250 / 0.55);
+
+  --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-white font-sans text-base leading-relaxed text-ink antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 { @apply font-bold tracking-tight text-navy-900; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 3px solid var(--color-brand-400); outline-offset: 2px; border-radius: 6px; }
+  [hidden] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@utility container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+@utility section { @apply py-16 sm:py-20 lg:py-24; }
+@utility eyebrow { @apply inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700; }
+@utility eyebrow-dark { @apply inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-sm font-semibold text-brand-300; }
+@utility h2 { @apply text-3xl leading-tight sm:text-4xl; }
+@utility lead { @apply mt-4 max-w-2xl text-lg text-muted; }
+@utility btn { @apply inline-flex min-h-11 cursor-pointer select-none items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-base font-semibold transition duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-50; }
+@utility btn-primary { @apply btn bg-accent-500 text-navy-950 shadow-[0_8px_24px_-8px_rgb(255_138_31/0.6)] hover:bg-accent-400 hover:-translate-y-0.5 active:translate-y-0 active:bg-accent-600; }
+@utility btn-secondary { @apply btn border border-white/25 bg-white/5 text-white backdrop-blur hover:border-brand-400 hover:bg-white/10 active:bg-white/15; }
+@utility btn-outline { @apply btn border border-brand-700/30 bg-white text-brand-700 hover:border-brand-700 hover:bg-brand-50 active:bg-brand-100; }
+@utility btn-ghost { @apply btn text-brand-700 hover:bg-brand-50 active:bg-brand-100; }
+@utility card { @apply rounded-2xl border border-line bg-white shadow-card; }
+@utility card-hover { @apply transition duration-300 ease-out hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift; }
+@utility field-label { @apply mb-1.5 block text-sm font-semibold text-navy-900; }
+@utility field { @apply block min-h-12 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-ink placeholder:text-slate-500 transition focus:border-brand-600 focus:outline-none focus:ring-4 focus:ring-brand-400/25 aria-[invalid=true]:border-red-600 aria-[invalid=true]:ring-red-600/15; }
+@utility field-error { @apply mt-1.5 text-sm font-medium text-red-700; }
+@utility grid-bg {
+  background-image: linear-gradient(rgb(12 198 250 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(12 198 250 / 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Hiện dần khi cuộn – chỉ ẩn khi JS chạy */
+.js [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; transition-delay: var(--d, 0ms); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js [data-reveal] { opacity: 1; transform: none; } }
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }

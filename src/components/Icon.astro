@@ -1,0 +1,14 @@
+---
+import { icons } from '@lucide/astro';
+
+interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+  strokeWidth?: number;
+}
+const { name, class: className = 'size-5', size = 24, strokeWidth = 2 } = Astro.props;
+const Cmp = (icons as Record<string, any>)[name];
+if (!Cmp) throw new Error(`Unknown Lucide icon: ${name}`);
+---
+<Cmp class={className} size={size} stroke-width={strokeWidth} aria-hidden="true" focusable="false" />

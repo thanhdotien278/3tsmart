@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
+import { company, nav } from '../data/site';
+interface Props { home?: boolean }
+const { home = true } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="bg-navy-950 text-slate-300">
+  <div class="container-x grid gap-10 border-t border-white/10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <div>
+      <Image src={logo} alt="3tsmart" width={180} height={85} class="h-12 w-auto" />
+      <p class="mt-4 max-w-sm text-[15px]">Tư vấn, cung cấp và lắp đặt thiết bị điện công nghệ, giải pháp nhà thông minh trọn gói cho gia đình và doanh nghiệp.</p>
+      <ul class="mt-5 flex gap-2">
+        {([['facebook', 'Facebook'], ['youtube', 'YouTube'], ['tiktok', 'TikTok']] as const).map(([k, label]) => (
+          <li><a href={company.social[k]} target="_blank" rel="noopener" class="grid size-11 place-items-center rounded-xl border border-white/10 text-slate-300 transition hover:border-brand-400 hover:text-brand-400" aria-label={`3tsmart trên ${label}`}><BrandIcon name={k} class="size-5" /></a></li>
+        ))}
+        <li><a href={company.zalo} target="_blank" rel="noopener" data-track="click_zalo" data-track-label="footer" class="grid size-11 place-items-center rounded-xl border border-white/10 text-slate-300 transition hover:border-brand-400 hover:text-brand-400" aria-label="Chat Zalo với 3tsmart"><BrandIcon name="zalo" class="size-6" /></a></li>
+      </ul>
+    </div>
+    <nav aria-label="Liên kết nhanh">
+      <h2 class="text-sm font-bold uppercase tracking-wider text-white">Khám phá</h2>
+      <ul class="mt-4 space-y-1">
+        {nav.map((n) => <li><a href={home ? n.href : `/${n.href}`} class="inline-flex min-h-9 items-center transition hover:text-brand-400">{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label="Chính sách">
+      <h2 class="text-sm font-bold uppercase tracking-wider text-white">Chính sách</h2>
+      <ul class="mt-4 space-y-1">
+        <li><a href="/chinh-sach-bao-hanh" class="inline-flex min-h-9 items-center transition hover:text-brand-400">Chính sách bảo hành</a></li>
+        <li><a href="/chinh-sach-bao-mat" class="inline-flex min-h-9 items-center transition hover:text-brand-400">Chính sách bảo mật</a></li>
+        <li><a href="/dieu-khoan-su-dung" class="inline-flex min-h-9 items-center transition hover:text-brand-400">Điều khoản sử dụng</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2 class="text-sm font-bold uppercase tracking-wider text-white">Liên hệ</h2>
+      <address class="mt-4 space-y-3 text-[15px] not-italic">
+        <p class="font-semibold text-white">{company.legalName}</p>
+        <p>MST: {company.taxId}</p>
+        <p class="flex gap-2"><Icon name="MapPin" class="mt-1 size-4 shrink-0 text-brand-400" />{company.address}</p>
+        <p><a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="footer" class="flex items-center gap-2 transition hover:text-brand-400"><Icon name="Phone" class="size-4 text-brand-400" />{company.hotline}</a></p>
+        <p><a href={`mailto:${company.email}`} class="flex items-center gap-2 transition hover:text-brand-400"><Icon name="Mail" class="size-4 text-brand-400" />{company.email}</a></p>
+      </address>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container-x flex flex-col items-center justify-between gap-2 py-6 text-sm text-slate-400 sm:flex-row">
+      <p>© {year} 3tsmart. Bảo lưu mọi quyền.</p>
+      <p>Thiết kế cho ngôi nhà Việt hiện đại.</p>
+    </div>
+  </div>
+</footer>

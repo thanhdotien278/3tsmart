@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { faqs, company } from '../data/site';
+---
+<section id="faq" class="section" aria-labelledby="faq-title">
+  <div class="container-x grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <div>
+      <SectionHeading id="faq-title" eyebrow="Hỏi đáp" title="Câu hỏi thường gặp" lead="Chưa thấy câu trả lời bạn cần? Gọi hoặc nhắn Zalo, kỹ thuật viên sẽ giải đáp ngay." />
+      <div class="mt-6 flex flex-wrap gap-3" data-reveal>
+        <a href={`tel:${company.hotlineTel}`} class="btn-outline" data-track="click_call" data-track-label="faq"><Icon name="Phone" class="size-5" />{company.hotline}</a>
+        <a href={company.zalo} target="_blank" rel="noopener" class="btn-ghost" data-track="click_zalo" data-track-label="faq">Chat Zalo</a>
+      </div>
+    </div>
+    <div class="divide-y divide-line rounded-3xl border border-line bg-white px-5 shadow-card sm:px-7" data-reveal>
+      {faqs.map((f, i) => (
+        <details class="group py-1" open={i === 0}>
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-[17px] font-semibold text-navy-900 transition hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span class="grid size-8 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-700 transition duration-300 group-open:rotate-180"><Icon name="ChevronDown" class="size-5" /></span>
+          </summary>
+          <p class="pb-5 pr-10 text-muted">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

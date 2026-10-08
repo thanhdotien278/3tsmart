@@ -1,0 +1,107 @@
+---
+import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
+import { company, projectTypes } from '../data/site';
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.address)}`;
+const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(company.mapQuery)}&output=embed`;
+---
+<section id="lien-he" class="section relative isolate overflow-hidden bg-navy-950 text-white" aria-labelledby="contact-title">
+  <div class="grid-bg absolute inset-0 -z-10 opacity-50"></div>
+  <div class="absolute -right-40 top-0 -z-10 size-[520px] rounded-full bg-brand-400/15 blur-[120px]"></div>
+  <div class="container-x grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+    <div>
+      <p class="eyebrow-dark" data-reveal><Icon name="Sparkles" class="size-4" /> Miễn phí khảo sát & báo giá</p>
+      <h2 id="contact-title" class="h2 mt-4 text-white" data-reveal>Nhận tư vấn & báo giá trong 30 phút</h2>
+      <p class="mt-4 max-w-xl text-lg text-slate-300" data-reveal>Để lại thông tin, chuyên viên 3tsmart sẽ gọi lại để tư vấn giải pháp phù hợp ngân sách – không phát sinh chi phí, không ràng buộc.</p>
+
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2" data-reveal>
+        <li><a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="contact" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-400 text-navy-950"><Icon name="Phone" class="size-5" /></span><span><span class="block text-sm text-slate-400">Hotline</span><span class="block font-bold">{company.hotline}</span></span></a></li>
+        <li><a href={company.zalo} target="_blank" rel="noopener" data-track="click_zalo" data-track-label="contact" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-[#0068ff] text-white"><BrandIcon name="zalo" class="size-7" /></span><span><span class="block text-sm text-slate-400">Zalo</span><span class="block font-bold">Chat ngay</span></span></a></li>
+        <li><a href={`mailto:${company.email}`} data-track="click_email" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="Mail" class="size-5" /></span><span class="min-w-0"><span class="block text-sm text-slate-400">Email</span><span class="block truncate font-bold">{company.email}</span></span></a></li>
+        <li><div class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="Clock" class="size-5" /></span><span><span class="block text-sm text-slate-400">Giờ làm việc</span><span class="block text-sm font-semibold">{company.hours}</span></span></div></li>
+        <li class="sm:col-span-2"><a href={mapsLink} target="_blank" rel="noopener" data-track="click_map" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="MapPin" class="size-5" /></span><span><span class="block text-sm text-slate-400">Showroom</span><span class="block font-semibold">{company.address}</span></span></a></li>
+      </ul>
+
+      <div class="relative mt-4 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-900" data-map={mapsEmbed} data-reveal>
+        <div class="grid-bg absolute inset-0 opacity-70"></div>
+        <div class="absolute inset-0 grid place-items-center p-6 text-center">
+          <div>
+            <span class="mx-auto grid size-14 place-items-center rounded-full bg-brand-400/15 text-brand-400"><Icon name="MapPin" class="size-7" /></span>
+            <button type="button" data-map-load class="btn-secondary mt-4">Hiển thị bản đồ Google Maps</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-3xl bg-white p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.7)] sm:p-8" data-reveal>
+      <form id="lead-form" novalidate class="grid gap-5" aria-describedby="form-note">
+        <div>
+          <h3 class="text-2xl">Đăng ký tư vấn miễn phí</h3>
+          <p id="form-note" class="mt-1 text-sm text-muted">Các mục có dấu <span class="font-bold text-red-700">*</span> là bắt buộc.</p>
+        </div>
+        <div id="form-errors" class="hidden rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert" tabindex="-1"></div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="f-name" class="field-label">Họ và tên <span class="text-red-700">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="80" class="field" placeholder="Nguyễn Văn A" aria-describedby="f-name-err" />
+            <p id="f-name-err" class="field-error" hidden></p>
+          </div>
+          <div>
+            <label for="f-phone" class="field-label">Số điện thoại <span class="text-red-700">*</span></label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="15" class="field" placeholder="09xx xxx xxx" aria-describedby="f-phone-err" />
+            <p id="f-phone-err" class="field-error" hidden></p>
+          </div>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="f-email" class="field-label">Email <span class="font-normal text-muted">(không bắt buộc)</span></label>
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" class="field" placeholder="ban@email.com" aria-describedby="f-email-err" />
+            <p id="f-email-err" class="field-error" hidden></p>
+          </div>
+          <div>
+            <label for="f-type" class="field-label">Loại hình công trình</label>
+            <select id="f-type" name="projectType" class="field cursor-pointer">
+              <option value="">— Chọn loại hình —</option>
+              {projectTypes.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="f-note" class="field-label">Nhu cầu / ghi chú</label>
+          <textarea id="f-note" name="note" rows="4" maxlength="1000" class="field resize-y" placeholder="Ví dụ: Căn hộ 80m², muốn lắp công tắc, khóa cửa và rèm phòng khách…"></textarea>
+        </div>
+
+        <!-- Honeypot chống spam -->
+        <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div>
+          <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
+            <input id="f-consent" name="consent" type="checkbox" required class="mt-0.5 size-5 shrink-0 cursor-pointer rounded accent-brand-700" aria-describedby="f-consent-err" />
+            <span>Tôi đồng ý để 3tsmart thu thập và xử lý thông tin trên nhằm liên hệ tư vấn, theo <a href="/chinh-sach-bao-mat" class="font-semibold text-brand-700 underline underline-offset-2">Chính sách bảo mật</a> (Nghị định 13/2023/NĐ-CP). <span class="text-red-700">*</span></span>
+          </label>
+          <p id="f-consent-err" class="field-error" hidden></p>
+        </div>
+
+        <button type="submit" class="btn-primary w-full !min-h-14 text-lg" data-submit>
+          <span data-label>Gửi yêu cầu tư vấn</span>
+          <span data-loading hidden class="inline-flex items-center gap-2"><span class="size-5 animate-spin rounded-full border-2 border-navy-950/30 border-t-navy-950"></span>Đang gửi…</span>
+        </button>
+        <p class="flex items-center justify-center gap-2 text-center text-sm text-muted"><Icon name="ShieldCheck" class="size-4 text-brand-700" />Thông tin của bạn được bảo mật tuyệt đối.</p>
+      </form>
+
+      <div id="lead-success" class="py-10 text-center" role="status" tabindex="-1" hidden>
+        <span class="mx-auto grid size-16 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Icon name="Check" class="size-8" strokeWidth={3} /></span>
+        <h3 class="mt-5 text-2xl">Cảm ơn bạn đã đăng ký!</h3>
+        <p class="mx-auto mt-2 max-w-sm text-muted">3tsmart đã nhận được yêu cầu. Chuyên viên sẽ liên hệ với bạn trong giờ làm việc sớm nhất (thường trong vòng 30 phút).</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a href={`tel:${company.hotlineTel}`} class="btn-outline" data-track="click_call" data-track-label="success"><Icon name="Phone" class="size-5" />Gọi ngay {company.hotline}</a>
+          <button type="button" data-form-reset class="btn-ghost">Gửi yêu cầu khác</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { company } from '../data/site';
+---
+<LegalLayout title="Chính sách bảo hành" description="Chính sách bảo hành thiết bị và dịch vụ lắp đặt nhà thông minh của 3tsmart." path="/chinh-sach-bao-hanh">
+  <p>Nội dung dưới đây là bản mẫu – 3tsmart cần xác nhận lại thời hạn và điều kiện cụ thể cho từng dòng sản phẩm.</p>
+  <h2>1. Thời hạn bảo hành</h2>
+  <ul><li>Thiết bị: 12–24 tháng theo chính sách của hãng, tính từ ngày bàn giao.</li><li>1 đổi 1 trong 30 ngày đầu nếu lỗi do nhà sản xuất.</li><li>Thi công, lắp đặt: 12 tháng.</li></ul>
+  <h2>2. Điều kiện bảo hành</h2>
+  <ul><li>Sản phẩm còn tem bảo hành, số serial rõ ràng.</li><li>Lỗi kỹ thuật do nhà sản xuất.</li></ul>
+  <h2>3. Trường hợp không được bảo hành</h2>
+  <ul><li>Hư hỏng do thiên tai, cháy nổ, sét đánh, vào nước, sử dụng sai điện áp.</li><li>Sản phẩm bị tự ý tháo, sửa chữa bởi bên thứ ba.</li></ul>
+  <h2>4. Liên hệ bảo hành</h2>
+  <p>Gọi <a class="font-semibold text-brand-700 underline" href={`tel:${company.hotlineTel}`}>{company.hotline}</a> hoặc nhắn Zalo – kỹ thuật viên phản hồi trong 30 phút và có mặt trong 24 giờ (nội thành).</p>
+</LegalLayout>
