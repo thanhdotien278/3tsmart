@@ -4,59 +4,35 @@ import logo from '../assets/brand/logo.png';
 import Icon from './Icon.astro';
 import { company, nav } from '../data/site';
 interface Props { home?: boolean }
-const { home = true } = Astro.props;
-const href = (h: string) => (home ? h : `/${h}`);
+const active = (href: string) => Astro.url.pathname === href || Astro.url.pathname.startsWith(href + '/');
 ---
-<header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-950/85 backdrop-blur-md transition-shadow duration-300 data-[scrolled=true]:shadow-[0_10px_30px_-12px_rgb(0_0_0/0.6)]">
-  <div class="container-x flex h-16 items-center justify-between gap-2 lg:h-[72px]">
-    <a href={home ? '#top' : '/'} class="flex shrink-0 items-center rounded-lg" aria-label="3tsmart – về đầu trang">
-      <Image src={logo} alt="3tsmart" width={180} height={85} class="h-9 w-auto lg:h-11" loading="eager" fetchpriority="high" />
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-line bg-white transition-shadow data-[scrolled=true]:shadow-sm">
+  <div class="bg-navy-900 text-white">
+    <div class="container-x flex min-h-9 flex-wrap items-center justify-between gap-x-4 gap-y-1 py-1 text-xs sm:text-sm">
+      <span>Thiết bị & giải pháp<span class="hidden sm:inline"> nhà thông minh</span></span>
+      <a href={`tel:${company.hotlineTel}`} class="inline-flex min-h-7 items-center gap-2 font-semibold" data-track="click_call" data-track-label="topbar"><Icon name="Phone" class="size-3.5" /> {company.hotline}</a>
+    </div>
+  </div>
+  <div class="container-x flex h-20 items-center justify-between gap-3 lg:h-24">
+    <a href="/" class="shrink-0" aria-label="3tsmart – Trang chủ">
+      <Image src={logo} alt="3tsmart" width={180} height={85} class="h-10 w-auto sm:h-12 lg:h-14" loading="eager" />
     </a>
-
     <nav aria-label="Điều hướng chính" class="hidden lg:block">
       <ul class="flex items-center gap-1 xl:gap-2">
-        {nav.map((item) => (
-          <li>
-            <a href={href(item.href)} data-nav class="relative inline-flex min-h-11 items-center rounded-lg px-2.5 text-[15px] font-medium text-slate-300 transition hover:text-white aria-[current=true]:text-brand-400 xl:px-3">
-              {item.label}
-            </a>
-          </li>
-        ))}
+        {nav.map((item) => <li><a href={item.href} aria-current={active(item.href) ? 'page' : undefined} class="inline-flex min-h-11 items-center rounded-lg px-2.5 text-sm font-semibold text-navy-800 transition hover:text-brand-600 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-600 xl:px-3">{item.label}</a></li>)}
       </ul>
     </nav>
-
     <div class="flex items-center gap-2">
-      <a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="header" class="hidden min-h-11 items-center gap-2 rounded-xl px-3 font-semibold text-white transition hover:text-brand-400 xl:inline-flex">
-        <span class="grid size-9 place-items-center rounded-full bg-brand-400/15 text-brand-400"><Icon name="Phone" class="size-4" /></span>
-        {company.hotline}
-      </a>
-      <a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="header-mobile" class="grid size-11 place-items-center rounded-xl border border-white/15 text-brand-400 transition hover:bg-white/10 xl:hidden" aria-label={`Gọi hotline ${company.hotline}`}>
-        <Icon name="Phone" class="size-5" />
-      </a>
-      <a href={href('#lien-he')} data-track="cta_click" data-track-label="header" class="btn-primary !min-h-11 !px-3.5 text-sm sm:!px-5 sm:text-base">
-        Nhận báo giá
-      </a>
-      <button type="button" id="menu-toggle" class="grid size-11 cursor-pointer place-items-center rounded-xl border border-white/15 text-white transition hover:bg-white/10 lg:hidden" aria-controls="mobile-menu" aria-expanded="false" aria-label="Mở menu">
-        <span data-icon-open><Icon name="Menu" class="size-5" /></span>
-        <span data-icon-close hidden><Icon name="X" class="size-5" /></span>
+      <a href="/lien-he" class="btn-primary !px-3 text-sm sm:!px-5">Tư vấn & báo giá</a>
+      <button type="button" id="menu-toggle" class="grid size-11 cursor-pointer place-items-center rounded-lg border border-line text-navy-900 lg:hidden" aria-controls="mobile-menu" aria-expanded="false" aria-label="Mở menu">
+        <span data-icon-open><Icon name="Menu" class="size-5" /></span><span data-icon-close hidden><Icon name="X" class="size-5" /></span>
       </button>
     </div>
   </div>
-
-  <div id="mobile-menu" class="border-t border-white/10 bg-navy-950 lg:hidden" hidden>
+  <div id="mobile-menu" class="max-h-[70vh] overflow-y-auto border-t border-line bg-white lg:hidden" hidden>
     <nav aria-label="Điều hướng di động" class="container-x py-3">
-      <ul class="grid gap-1 sm:grid-cols-2">
-        {nav.map((item) => (
-          <li>
-            <a href={href(item.href)} data-nav class="flex min-h-12 items-center rounded-xl px-4 text-base font-medium text-slate-200 transition hover:bg-white/5 aria-[current=true]:bg-brand-400/10 aria-[current=true]:text-brand-400">
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="menu" class="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-xl border border-brand-400/30 font-semibold text-brand-400">
-        <Icon name="Phone" class="size-5" /> Hotline {company.hotline}
-      </a>
+      <ul class="grid gap-1 sm:grid-cols-2">{nav.map((item) => <li><a href={item.href} aria-current={active(item.href) ? 'page' : undefined} class="flex min-h-12 items-center rounded-lg px-4 font-semibold hover:bg-brand-50 aria-[current=page]:text-brand-600">{item.label}</a></li>)}</ul>
+      <a href={company.zalo} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-3 w-full">Trao đổi qua Zalo</a>
     </nav>
   </div>
 </header>

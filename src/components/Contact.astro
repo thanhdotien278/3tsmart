@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import BrandIcon from './BrandIcon.astro';
 import { company, projectTypes } from '../data/site';
+const hasEndpoint = Boolean(import.meta.env.PUBLIC_LEAD_ENDPOINT);
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.mapQuery)}`;
 const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(company.mapQuery)}&output=embed`;
 ---
@@ -10,16 +11,16 @@ const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(company.ma
   <div class="absolute -right-40 top-0 -z-10 size-[520px] rounded-full bg-brand-400/15 blur-[120px]"></div>
   <div class="container-x grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
     <div>
-      <p class="eyebrow-dark" data-reveal><Icon name="Sparkles" class="size-4" /> Miễn phí khảo sát & báo giá</p>
-      <h2 id="contact-title" class="h2 mt-4 text-white" data-reveal>Nhận tư vấn & báo giá trong 30 phút</h2>
-      <p class="mt-4 max-w-xl text-lg text-slate-300" data-reveal>Để lại thông tin, chuyên viên 3tsmart sẽ gọi lại để tư vấn giải pháp phù hợp ngân sách – không phát sinh chi phí, không ràng buộc.</p>
+      <p class="eyebrow-dark" data-reveal><Icon name="Sparkles" class="size-4" /> Tư vấn thiết bị & phương án</p>
+      <h2 id="contact-title" class="h2 mt-4 text-white" data-reveal>Cùng làm rõ nhu cầu của bạn.</h2>
+      <p class="mt-4 max-w-xl text-lg text-slate-300" data-reveal>Gửi ảnh hiện trạng qua Zalo, trao đổi qua hotline hoặc chuẩn bị yêu cầu bằng form bên dưới. Cấu hình và chi phí được xác nhận theo từng phương án.</p>
 
       <ul class="mt-8 grid gap-3 sm:grid-cols-2" data-reveal>
         <li><a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="contact" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-400 text-navy-950"><Icon name="Phone" class="size-5" /></span><span><span class="block text-sm text-slate-400">Hotline</span><span class="block font-bold">{company.hotline}</span></span></a></li>
         <li><a href={company.zalo} target="_blank" rel="noopener" data-track="click_zalo" data-track-label="contact" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-[#0068ff] text-white"><BrandIcon name="zalo" class="size-7" /></span><span><span class="block text-sm text-slate-400">Zalo</span><span class="block font-bold">Chat ngay</span></span></a></li>
         <li><a href={`mailto:${company.email}`} data-track="click_email" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="Mail" class="size-5" /></span><span class="min-w-0"><span class="block text-sm text-slate-400">Email</span><span class="block truncate font-bold">{company.email}</span></span></a></li>
-        <li><div class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="Clock" class="size-5" /></span><span><span class="block text-sm text-slate-400">Giờ làm việc</span><span class="block text-sm font-semibold">{company.hours}</span></span></div></li>
-        <li class="sm:col-span-2"><a href={mapsLink} target="_blank" rel="noopener" data-track="click_map" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="MapPin" class="size-5" /></span><span><span class="block text-sm text-slate-400">Showroom</span><span class="block font-semibold">{company.address}</span></span></a></li>
+
+        <li class="sm:col-span-2"><a href={mapsLink} target="_blank" rel="noopener" data-track="click_map" class="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-brand-400/50"><span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="MapPin" class="size-5" /></span><span><span class="block text-sm text-slate-400">Địa chỉ liên hệ</span><span class="block font-semibold">{company.address}</span></span></a></li>
       </ul>
 
       <div class="relative mt-4 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-900" data-map={mapsEmbed} data-reveal>
@@ -34,11 +35,13 @@ const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(company.ma
     </div>
 
     <div class="rounded-3xl bg-white p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.7)] sm:p-8" data-reveal>
-      <form id="lead-form" novalidate class="grid gap-5" aria-describedby="form-note">
+      <form id="lead-form" action={`mailto:${company.email}`} method="post" enctype="text/plain" data-recipient={company.email} class="grid gap-5" aria-describedby="form-note">
         <div>
-          <h3 class="text-2xl">Đăng ký tư vấn miễn phí</h3>
+          <h3 class="text-2xl">Chuẩn bị yêu cầu tư vấn</h3>
           <p id="form-note" class="mt-1 text-sm text-muted">Các mục có dấu <span class="font-bold text-red-700">*</span> là bắt buộc.</p>
         </div>
+        <p class="rounded-lg bg-brand-50 p-3 text-sm text-muted">{hasEndpoint ? 'Form chuyển yêu cầu đến hệ thống tiếp nhận. Nếu cần xác nhận ngay, vui lòng gọi hotline hoặc nhắn Zalo.' : 'Form tạo email soạn sẵn. Bạn cần bấm Gửi trong ứng dụng email; website không tự lưu hay xác nhận đã nhận yêu cầu.'}</p>
+        <noscript><p class="text-sm text-muted">Bạn có thể gửi qua ứng dụng email hoặc liên hệ trực tiếp bằng hotline / Zalo.</p></noscript>
         <div id="form-errors" class="hidden rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert" tabindex="-1"></div>
 
         <div class="grid gap-5 sm:grid-cols-2">
@@ -87,17 +90,19 @@ const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(company.ma
         </div>
 
         <button type="submit" class="btn-primary w-full !min-h-14 text-lg" data-submit>
-          <span data-label>Gửi yêu cầu tư vấn</span>
+          <span data-label>{hasEndpoint ? 'Chuyển yêu cầu tư vấn' : 'Soạn email yêu cầu'}</span>
           <span data-loading hidden class="inline-flex items-center gap-2"><span class="size-5 animate-spin rounded-full border-2 border-navy-950/30 border-t-navy-950"></span>Đang gửi…</span>
         </button>
-        <p class="flex items-center justify-center gap-2 text-center text-sm text-muted"><Icon name="ShieldCheck" class="size-4 text-brand-700" />Thông tin của bạn được bảo mật tuyệt đối.</p>
+        <p class="flex items-center justify-center gap-2 text-center text-sm text-muted"><Icon name="ShieldCheck" class="size-4 text-brand-700" />Thông tin dùng để trao đổi về yêu cầu của bạn.</p>
       </form>
 
       <div id="lead-success" class="py-10 text-center" role="status" tabindex="-1" hidden>
         <span class="mx-auto grid size-16 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Icon name="Check" class="size-8" strokeWidth={3} /></span>
-        <h3 class="mt-5 text-2xl">Cảm ơn bạn đã đăng ký!</h3>
-        <p class="mx-auto mt-2 max-w-sm text-muted">3tsmart đã nhận được yêu cầu. Chuyên viên sẽ liên hệ với bạn trong giờ làm việc sớm nhất (thường trong vòng 30 phút).</p>
+        <h3 class="mt-5 text-2xl" data-success-title>Yêu cầu của bạn</h3>
+        <p class="mx-auto mt-2 max-w-sm text-muted" data-success-message></p>
         <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a data-email-draft href={`mailto:${company.email}`} class="btn-primary" hidden>Mở lại email soạn sẵn</a>
+          <a href={company.zalo} target="_blank" rel="noopener noreferrer" class="btn-outline">Nhắn Zalo</a>
           <a href={`tel:${company.hotlineTel}`} class="btn-outline" data-track="click_call" data-track-label="success"><Icon name="Phone" class="size-5" />Gọi ngay {company.hotline}</a>
           <button type="button" data-form-reset class="btn-ghost">Gửi yêu cầu khác</button>
         </div>

@@ -3,11 +3,11 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 import { company } from '../data/site';
 ---
 <LegalLayout title="Điều khoản sử dụng" description="Điều khoản sử dụng website 3tsmart." path="/dieu-khoan-su-dung">
-  <p>Khi truy cập website của {company.legalName}, bạn đồng ý với các điều khoản dưới đây.</p>
+  <p>Khi truy cập website của {company.legalName || company.brand}, bạn đồng ý với các điều khoản dưới đây.</p>
   <h2>1. Nội dung</h2>
-  <p>Thông tin sản phẩm, hình ảnh và giá (nếu có) mang tính tham khảo, có thể thay đổi mà không cần báo trước. Báo giá chính thức được gửi sau khi khảo sát.</p>
+  <p>Danh mục hiện tại mô tả nhóm thiết bị và gợi ý lựa chọn, không xác nhận tồn kho hay model cụ thể. Ảnh được ghi minh họa không phải bằng chứng công trình. Giá, cấu hình và điều kiện lắp đặt được thống nhất trong báo giá riêng.</p>
   <h2>2. Sở hữu trí tuệ</h2>
-  <p>Logo, nội dung và thiết kế website thuộc quyền sở hữu của 3tsmart. Không sao chép khi chưa có sự đồng ý bằng văn bản.</p>
+  <p>Logo 3tsmart và nội dung do 3tsmart công bố được sử dụng cho website này. Ảnh minh họa có thể thuộc quyền của tác giả hoặc được sử dụng theo giấy phép của nguồn ảnh. Không sử dụng lại khi chưa kiểm tra quyền và giấy phép áp dụng.</p>
   <h2>3. Trách nhiệm người dùng</h2>
   <p>Cung cấp thông tin chính xác khi đăng ký tư vấn; không sử dụng website cho mục đích gây hại, spam.</p>
   <h2>4. Liên hệ</h2>

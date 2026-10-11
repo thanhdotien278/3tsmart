@@ -2,14 +2,14 @@
 import LegalLayout from '../layouts/LegalLayout.astro';
 import { company } from '../data/site';
 ---
-<LegalLayout title="Chính sách bảo hành" description="Chính sách bảo hành thiết bị và dịch vụ lắp đặt nhà thông minh của 3tsmart." path="/chinh-sach-bao-hanh">
-  <p>Nội dung dưới đây là bản mẫu – 3tsmart cần xác nhận lại thời hạn và điều kiện cụ thể cho từng dòng sản phẩm.</p>
-  <h2>1. Thời hạn bảo hành</h2>
-  <ul><li>Thiết bị: 12–24 tháng theo chính sách của hãng, tính từ ngày bàn giao.</li><li>1 đổi 1 trong 30 ngày đầu nếu lỗi do nhà sản xuất.</li><li>Thi công, lắp đặt: 12 tháng.</li></ul>
-  <h2>2. Điều kiện bảo hành</h2>
-  <ul><li>Sản phẩm còn tem bảo hành, số serial rõ ràng.</li><li>Lỗi kỹ thuật do nhà sản xuất.</li></ul>
-  <h2>3. Trường hợp không được bảo hành</h2>
-  <ul><li>Hư hỏng do thiên tai, cháy nổ, sét đánh, vào nước, sử dụng sai điện áp.</li><li>Sản phẩm bị tự ý tháo, sửa chữa bởi bên thứ ba.</li></ul>
-  <h2>4. Liên hệ bảo hành</h2>
-  <p>Gọi <a class="font-semibold text-brand-700 underline" href={`tel:${company.hotlineTel}`}>{company.hotline}</a> hoặc nhắn Zalo – kỹ thuật viên phản hồi trong 30 phút và có mặt trong 24 giờ (nội thành).</p>
+<LegalLayout title="Thông tin bảo hành & hỗ trợ" description="Cách xác nhận điều kiện bảo hành theo model và liên hệ hỗ trợ thiết bị tại 3tsmart." path="/chinh-sach-bao-hanh">
+  <p>Thời hạn và phạm vi bảo hành cần được xác nhận trong báo giá, chứng từ mua hàng hoặc phiếu bảo hành của từng thiết bị. Website không áp dụng một thời hạn hay cam kết đổi mới chung cho mọi sản phẩm.</p>
+  <h2>1. Kiểm tra trước khi mua</h2>
+  <ul><li>Model, số lượng và đơn vị chịu trách nhiệm bảo hành.</li><li>Thời điểm bắt đầu, thời hạn và điều kiện áp dụng.</li><li>Phạm vi thiết bị, phụ kiện và công lắp đặt.</li><li>Chi phí vận chuyển, kiểm tra hoặc xử lý ngoài bảo hành nếu có.</li></ul>
+  <h2>2. Khi cần hỗ trợ</h2>
+  <p>Chuẩn bị thông tin mua hàng, model / serial, ảnh hoặc video mô tả tình trạng và số điện thoại liên hệ. Không tự tháo sửa thiết bị điện khi chưa có hướng dẫn an toàn.</p>
+  <h2>3. Tiếp nhận và xử lý</h2>
+  <p>Phương án, thời gian xử lý và chi phí (nếu có) được trao đổi sau khi kiểm tra tình trạng cùng điều kiện bảo hành. Không có cam kết thời gian phản hồi cố định trên website.</p>
+  <h2>4. Đầu mối liên hệ</h2>
+  <p>Gọi <a class="font-semibold text-brand-700 underline" href={`tel:${company.hotlineTel}`}>{company.hotline}</a>, <a class="font-semibold text-brand-700 underline" href={company.zalo} target="_blank" rel="noopener noreferrer">nhắn Zalo</a> hoặc gửi email <a class="font-semibold text-brand-700 underline" href={`mailto:${company.email}`}>{company.email}</a>.</p>
 </LegalLayout>

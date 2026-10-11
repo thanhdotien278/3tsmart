@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import SitePage from '../../layouts/SitePage.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import DeviceArt from '../../components/DeviceArt.astro';
+import Icon from '../../components/Icon.astro';
+import { categories, company } from '../../data/site';
+export const getStaticPaths = (() => categories.map((item) => ({ params: { slug: item.id }, props: { item } }))) satisfies GetStaticPaths;
+const { item } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
+const inquiry = `/lien-he?thiet-bi=${encodeURIComponent(item.name)}#lead-form`;
+---
+<SitePage title={`${item.name} – Lựa chọn & hỏi giá | 3tsmart`} description={item.desc}>
+  <PageIntro eyebrow={item.name} title={item.name} lead={item.desc} parent={{ href: '/san-pham', label: 'Thiết bị' }} />
+  <div class="container-x grid gap-10 py-12 lg:grid-cols-2">
+    <figure class="rounded-xl border border-line bg-surface p-8"><DeviceArt kind={item.art} class="mx-auto aspect-[4/3] w-full max-w-lg" label={`Minh họa ${item.name}`} /><figcaption class="mt-4 text-center text-sm text-muted">Hình minh họa nhóm thiết bị, không đại diện model đang bán.</figcaption></figure>
+    <div><p class="eyebrow">Tư vấn cấu hình trước khi mua</p><h2 class="mt-5 text-2xl">Điều cần kiểm tra</h2><ul class="mt-5 space-y-4">{item.checks.map((c) => <li class="flex items-start gap-3"><Icon name="Check" class="mt-1 size-5 shrink-0 text-brand-700" /><span>{c}</span></li>)}</ul>
+      <div class="mt-7 rounded-xl bg-brand-50 p-5"><h3 class="text-lg">Bạn có thể gửi trước</h3><p class="mt-2 text-muted">{item.needs}</p></div>
+      <p class="mt-5 text-sm text-muted">Model, giá, phụ kiện, tình trạng hàng và bảo hành được xác nhận theo báo giá cụ thể. Không phải mọi tính năng đều có trên mọi thiết bị.</p>
+      <div class="mt-6 flex flex-wrap gap-3"><a href={inquiry} class="btn-primary">Yêu cầu tư vấn & giá</a><a href={company.zalo} target="_blank" rel="noopener noreferrer" class="btn-outline">Gửi ảnh qua Zalo</a></div>
+    </div>
+  </div>
+  <div class="border-y border-line bg-surface py-10"><div class="container-x"><h2 class="text-2xl">Một báo giá rõ ràng cần có gì?</h2><ul class="mt-5 grid gap-4 sm:grid-cols-3">{['Model và số lượng thiết bị', 'Phụ kiện, công lắp và cấu hình', 'Điều kiện bảo hành và thời gian dự kiến'].map((t) => <li class="card p-5">{t}</li>)}</ul></div></div>
+  <div class="container-x py-10"><h2 class="text-xl">Khám phá nhóm thiết bị khác</h2><div class="mt-4 flex flex-wrap gap-2">{categories.filter((c) => c.id !== item.id).map((c) => <a href={`/san-pham/${c.id}`} class="btn-ghost text-sm">{c.name}</a>)}</div></div>
+</SitePage>
