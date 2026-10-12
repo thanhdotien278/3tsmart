@@ -1,73 +1,38 @@
 ---
-import { Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
+import { hero } from '../data/site';
 import Icon from './Icon.astro';
-import { hero, stats } from '../data/site';
-const fmt = (n: number) => n.toLocaleString('vi-VN');
 ---
-<section id="top" class="relative isolate overflow-hidden bg-navy-950 pt-16 text-white lg:pt-[72px]" aria-labelledby="hero-title">
-  <div class="grid-bg absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"></div>
-  <div class="absolute -left-40 top-10 -z-10 size-[520px] rounded-full bg-brand-400/20 blur-[120px]"></div>
-  <div class="absolute -right-32 bottom-0 -z-10 size-[420px] rounded-full bg-brand-600/20 blur-[120px]"></div>
-
-  <div class="container-x grid items-center gap-12 pb-28 pt-12 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pb-36 lg:pt-20">
+<section id="top" aria-labelledby="hero-title" class="page-content bg-[#f2f6f6]">
+  <div class="container-x grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:py-20">
     <div>
-      <p class="eyebrow-dark" data-reveal><Icon name="Sparkles" class="size-4" /> Giải pháp Smart Home trọn gói</p>
-      <h1 id="hero-title" class="mt-5 text-4xl leading-[1.12] text-white sm:text-5xl lg:text-[3.5rem]" data-reveal style="--d:60ms">
-        Nhà thông minh – <span class="bg-gradient-to-r from-brand-300 to-brand-400 bg-clip-text text-transparent">Tiện nghi hơn, an toàn hơn</span> cùng 3tsmart
-      </h1>
-      <p class="mt-5 max-w-xl text-lg text-slate-300" data-reveal style="--d:120ms">{hero.subtitle}</p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal style="--d:180ms">
-        <a href="#lien-he" class="btn-primary !min-h-13 !px-7 text-lg" data-track="cta_hero_click" data-track-label="tu-van">
-          Nhận tư vấn miễn phí <Icon name="ArrowRight" class="size-5" />
-        </a>
-        <a href="#san-pham" class="btn-secondary !min-h-13 !px-7 text-lg" data-track="cta_hero_click" data-track-label="xem-san-pham">Xem sản phẩm</a>
+      <p class="eyebrow">3tsmart · Thiết bị & giải pháp</p>
+      <h1 id="hero-title" class="mt-5 text-[2.6rem] font-bold leading-[1.18] tracking-tight text-navy-950 sm:text-5xl lg:text-[3.5rem]">Một ngôi nhà<br />thông minh.<br /><span class="text-brand-600">Một cuộc sống dễ hơn.</span></h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">Từ một chiếc công tắc đến giải pháp cho cả ngôi nhà. Bắt đầu với điều bạn cần, lựa chọn thiết bị phù hợp và làm rõ phương án trước khi lắp đặt.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/san-pham" class="btn-primary">Khám phá thiết bị <Icon name="ArrowUpRight" class="size-4" /></a>
+        <a href="/lien-he" class="btn-secondary">Trao đổi nhu cầu</a>
       </div>
-      <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300" data-reveal style="--d:240ms">
-        {['Hàng chính hãng', 'Bảo hành 24 tháng', 'Khảo sát miễn phí'].map((t) => (
-          <li class="flex items-center gap-2"><span class="grid size-5 place-items-center rounded-full bg-brand-400/20 text-brand-400"><Icon name="Check" class="size-3.5" strokeWidth={3} /></span>{t}</li>
-        ))}
-      </ul>
+      <div class="mt-9 flex flex-wrap gap-x-5 gap-y-3 border-t border-line pt-5 text-sm font-medium text-navy-700">
+        <span class="inline-flex items-center gap-2"><Icon name="MapPin" class="size-4 text-brand-600" /> Kết nối tại Hà Nội</span>
+        <span class="inline-flex items-center gap-2"><Icon name="FileText" class="size-4 text-brand-600" /> Tư vấn theo hiện trạng</span>
+      </div>
     </div>
-
-    <div class="relative mx-auto w-full max-w-xl lg:max-w-none" data-reveal style="--d:120ms">
-      <div class="relative overflow-hidden rounded-[28px] border border-white/10 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.8)]">
-        <Picture src={hero.image} formats={['avif', 'webp']} widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 560px, 92vw" alt="Phòng khách hiện đại được điều khiển bằng hệ thống nhà thông minh" class="aspect-[4/3.4] w-full object-cover" loading="eager" fetchpriority="high" />
-        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent"></div>
+    <figure class="relative min-w-0">
+      <Image src={hero.image} alt="Không gian phòng khách hiện đại – ảnh minh họa ứng dụng nhà thông minh" widths={[560, 800, 1200]} sizes="(min-width:1024px) 50vw, 100vw" class="aspect-[5/4] w-full rounded-xl object-cover lg:aspect-[4/5]" loading="eager" fetchpriority="high" />
+      <div class="absolute inset-x-4 bottom-10 rounded-xl border border-white/50 bg-white/95 p-5 shadow-lg sm:inset-x-7 sm:p-6">
+        <div class="flex items-center gap-3"><span class="grid size-11 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-600"><Icon name="House" class="size-5" /></span><div><p class="font-bold text-navy-900">Công nghệ vừa đủ. Tiện nghi đúng nhu cầu.</p><p class="mt-1 text-sm text-muted">Chiếu sáng · An ninh · Rèm · Điều khiển</p></div></div>
       </div>
-      <!-- Thẻ trạng thái trang trí -->
-      <div aria-hidden="true">
-        <div class="absolute -left-3 top-6 flex items-center gap-3 rounded-2xl border border-white/15 bg-navy-900/70 p-3 pr-4 shadow-glow backdrop-blur-md sm:-left-8">
-          <span class="grid size-10 place-items-center rounded-xl bg-brand-400 text-navy-950"><Icon name="Lightbulb" class="size-5" /></span>
-          <div class="text-sm leading-tight"><p class="font-semibold text-white">Đèn phòng khách</p><p class="text-slate-300">Đang bật · 70%</p></div>
-          <span class="ml-1 flex h-6 w-10 items-center rounded-full bg-brand-400 p-0.5"><span class="ml-auto size-5 rounded-full bg-white"></span></span>
-        </div>
-        <div class="absolute -right-2 top-1/2 flex items-center gap-3 rounded-2xl border border-white/15 bg-navy-900/70 p-3 pr-4 backdrop-blur-md sm:-right-6">
-          <span class="grid size-10 place-items-center rounded-xl bg-emerald-400/90 text-navy-950"><Icon name="LockKeyhole" class="size-5" /></span>
-          <div class="text-sm leading-tight"><p class="font-semibold text-white">Cửa chính</p><p class="text-slate-300">Đã khóa an toàn</p></div>
-        </div>
-        <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-2xl border border-white/15 bg-navy-900/70 p-3 backdrop-blur-md sm:left-8 sm:right-auto sm:w-72">
-          <div class="flex items-center gap-3">
-            <span class="grid size-10 place-items-center rounded-xl bg-white/10 text-brand-300"><Icon name="Gauge" class="size-5" /></span>
-            <div class="text-sm leading-tight"><p class="font-semibold text-white">Điều hòa 26°C</p><p class="text-slate-300">Kịch bản “Về nhà”</p></div>
-          </div>
-          <span class="rounded-full bg-brand-400/15 px-2.5 py-1 text-xs font-semibold text-brand-300">Tự động</span>
-        </div>
-      </div>
+      <figcaption class="mt-2 text-right text-xs text-muted">Ảnh minh họa không gian, không phải công trình 3tsmart.</figcaption>
+    </figure>
+  </div>
+  <div class="border-y border-line bg-white">
+    <div class="container-x grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      {[
+        ['01', 'Tìm đúng thiết bị', 'Xem nhóm thiết bị và các lưu ý trước khi mua.', '/san-pham'],
+        ['02', 'Chọn theo không gian', 'Căn hộ, nhà phố, biệt thự và văn phòng.', '/giai-phap'],
+        ['03', 'Trao đổi phương án', 'Gửi nhu cầu để làm rõ cấu hình và chi phí.', '/lien-he'],
+      ].map(([n, title, text, href]) => <a href={href} class="group flex gap-4 py-6 sm:px-6 first:sm:pl-0 last:sm:pr-0"><span class="pt-1 text-xs font-bold text-brand-600">{n}</span><div><h2 class="text-base font-semibold group-hover:text-brand-600">{title} <span aria-hidden="true">↗</span></h2><p class="mt-1 text-sm text-muted">{text}</p></div></a>)}
     </div>
   </div>
-
 </section>
-<div class="relative z-10 bg-white pb-16 lg:pb-20">
-  <div class="container-x">
-    <dl class="-mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-line bg-line shadow-card lg:-mt-20 lg:grid-cols-4">
-      {stats.map((s) => (
-        <div class="bg-white px-4 py-6 text-center sm:px-6 lg:py-8">
-          <dt class="order-2 mt-1 text-sm font-medium text-muted sm:text-base">{s.label}</dt>
-          <dd class="order-1 text-3xl font-bold text-navy-900 sm:text-4xl">
-            <span data-count={s.value}>{fmt(s.value)}</span><span class="text-brand-700">{s.suffix}</span>
-          </dd>
-        </div>
-      ))}
-    </dl>
-  </div>
-</div>

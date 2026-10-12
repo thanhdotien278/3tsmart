@@ -1,3 +1,6 @@
+import { matchesDevice } from './catalog';
+import { createInquiryMailto } from './inquiry';
+
 type Dict = Record<string, unknown>;
 declare global {
   interface Window { dataLayer: Dict[]; __GTM_ID__?: string }
@@ -18,12 +21,12 @@ function captureUtm() {
   const q = new URLSearchParams(location.search);
   const found: Record<string, string> = {};
   UTM_KEYS.forEach((k) => { const v = q.get(k); if (v) found[k] = v.slice(0, 200); });
-  if (Object.keys(found).length) sessionStorage.setItem('3t_utm', JSON.stringify(found));
+  try { if (Object.keys(found).length) sessionStorage.setItem('3t_utm', JSON.stringify(found)); } catch { /* Không ảnh hưởng luồng liên hệ. */ }
 }
 const getUtm = (): Record<string, string> => { try { return JSON.parse(sessionStorage.getItem('3t_utm') || '{}'); } catch { return {}; } };
 
 function initTracking() {
-  captureUtm();
+  try { if (localStorage.getItem('3t_consent') === 'accept') captureUtm(); } catch { /* Storage có thể bị chặn. */ }
   document.addEventListener('click', (e) => {
     const el = (e.target as HTMLElement).closest<HTMLElement>('[data-track]');
     if (el) track(el.dataset.track!, { label: el.dataset.trackLabel || el.textContent?.trim().slice(0, 60) });
@@ -50,16 +53,17 @@ function initConsent() {
   const id = window.__GTM_ID__;
   const banner = $('#cookie-banner');
   if (!id || !banner) return;
-  const choice = localStorage.getItem('3t_consent');
+  let choice: string | null = null;
+  try { choice = localStorage.getItem('3t_consent'); } catch { /* Vẫn hiển thị lựa chọn. */ }
   if (choice === 'accept') return loadGtm(id);
   if (choice === 'reject') return;
   banner.hidden = false;
   banner.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-cookie]');
     if (!btn) return;
-    localStorage.setItem('3t_consent', btn.dataset.cookie!);
+    try { localStorage.setItem('3t_consent', btn.dataset.cookie!); } catch { /* Chỉ áp dụng trong trang hiện tại. */ }
     banner.hidden = true;
-    if (btn.dataset.cookie === 'accept') loadGtm(id);
+    if (btn.dataset.cookie === 'accept') { captureUtm(); loadGtm(id); }
   });
 }
 
@@ -132,13 +136,26 @@ function initReveal() {
 }
 
 /* ---------- Bộ lọc sản phẩm ---------- */
-function applyFilter(id: string) {
-  $$<HTMLButtonElement>('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === id)));
-  $$('#product-grid > li').forEach((li) => { li.hidden = id !== 'all' && li.dataset.group !== id; });
-}
 function initProducts() {
-  $$<HTMLButtonElement>('[data-filter]').forEach((b) => b.addEventListener('click', () => { applyFilter(b.dataset.filter!); track('filter_products', { group: b.dataset.filter }); }));
-  $$<HTMLAnchorElement>('[data-filter-go]').forEach((a) => a.addEventListener('click', () => applyFilter(a.dataset.filterGo!)));
+  const input = $<HTMLInputElement>('#catalog-search');
+  if (!input) return;
+  let group = 'all';
+  const cards = $$('#product-grid > li');
+  const buttons = $$<HTMLButtonElement>('[data-filter]');
+  const apply = () => {
+    let count = 0;
+    cards.forEach((card) => {
+      card.hidden = !matchesDevice(card.dataset.group || '', card.dataset.search || '', group, input.value);
+      if (!card.hidden) count++;
+    });
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === group)));
+    $('#catalog-count')!.textContent = `${count} nhóm thiết bị`;
+    $('#catalog-empty')!.hidden = count !== 0;
+  };
+  input.addEventListener('input', apply);
+  buttons.forEach((b) => b.addEventListener('click', () => { group = b.dataset.filter!; apply(); track('filter_products', { group }); }));
+  $('#catalog-reset')?.addEventListener('click', () => { input.value = ''; group = 'all'; apply(); input.focus(); });
+  apply();
 }
 
 /* ---------- Tabs (ARIA) ---------- */
@@ -236,10 +253,15 @@ function initForm() {
   const form = $<HTMLFormElement>('#lead-form');
   const success = $('#lead-success');
   if (!form || !success) return;
-  const startedAt = Date.now();
+  form.noValidate = true;
   const summary = $('#form-errors', form)!;
   const typeSel = $<HTMLSelectElement>('#f-type', form)!;
   const note = $<HTMLTextAreaElement>('#f-note', form)!;
+  const query = new URLSearchParams(location.search);
+  const device = query.get('thiet-bi')?.slice(0, 160);
+  const space = query.get('khong-gian');
+  if (device) note.value = `Tôi muốn hỏi giá: ${device}`;
+  if (space && Array.from(typeSel.options).some((o) => o.value === space)) typeSel.value = space;
 
   $$<HTMLAnchorElement>('[data-project-type]').forEach((a) => a.addEventListener('click', () => { typeSel.value = a.dataset.projectType!; }));
   $$<HTMLAnchorElement>('[data-ask]').forEach((a) => a.addEventListener('click', () => {
@@ -284,7 +306,7 @@ function initForm() {
     }
     summary.classList.add('hidden');
     const fd = new FormData(form);
-    const spam = String(fd.get('website') || '') !== '' || Date.now() - startedAt < 2500;
+    if (String(fd.get('website') || '')) return;
     const btn = $<HTMLButtonElement>('[data-submit]', form)!;
     btn.disabled = true; $('[data-label]', btn)!.hidden = true; $('[data-loading]', btn)!.hidden = false;
 
@@ -303,18 +325,29 @@ function initForm() {
     });
     const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT as string | undefined;
     try {
-      if (!spam) {
-        if (endpoint) {
-          // Google Apps Script không hỗ trợ CORS preflight → gửi dạng form, no-cors
-          await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: payload });
-        } else {
-          console.warn('[3tsmart] PUBLIC_LEAD_ENDPOINT chưa được cấu hình – lead chỉ được ghi log ở chế độ demo.', Object.fromEntries(payload));
-        }
-        track('generate_lead', { project_type: payload.get('projectType') || 'unknown', ...getUtm() });
+      const draft = $<HTMLAnchorElement>('[data-email-draft]', success)!;
+      draft.hidden = true;
+      if (endpoint) {
+        // Apps Script trả opaque response: không thể xác nhận lead đã được lưu.
+        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: payload, signal: AbortSignal.timeout(15000) });
+        $('[data-success-title]', success)!.textContent = 'Đã chuyển yêu cầu gửi';
+        $('[data-success-message]', success)!.textContent = 'Website chưa thể xác nhận hệ thống đã lưu yêu cầu. Nếu cần xác nhận tiếp nhận, hãy gọi hotline hoặc nhắn Zalo.';
+        track('lead_submission_attempt', { delivery: 'unconfirmed', project_type: payload.get('projectType') || 'unknown', ...getUtm() });
+      } else {
+        draft.href = createInquiryMailto(form.dataset.recipient!, {
+          name: payload.get('name') || '', phone: payload.get('phone') || '',
+          email: payload.get('email') || '', projectType: payload.get('projectType') || '',
+          note: payload.get('note') || '',
+        });
+        draft.hidden = false;
+        $('[data-success-title]', success)!.textContent = 'Email đã được soạn sẵn';
+        $('[data-success-message]', success)!.textContent = 'Ứng dụng email sẽ mở nếu thiết bị có cấu hình. Bạn cần bấm Gửi trong ứng dụng đó; 3tsmart chưa nhận yêu cầu chỉ từ thao tác trên website. Không có ứng dụng email? Vui lòng gọi hotline hoặc nhắn Zalo.';
+        track('inquiry_email_draft');
+        location.href = draft.href;
       }
       form.hidden = true; success.hidden = false; success.focus();
     } catch {
-      summary.textContent = 'Không gửi được do lỗi kết nối. Vui lòng thử lại hoặc gọi hotline để được hỗ trợ ngay.';
+      summary.textContent = 'Không chuyển được yêu cầu do lỗi kết nối. Vui lòng thử lại hoặc gọi hotline để được hỗ trợ.';
       summary.classList.remove('hidden'); summary.focus();
       track('form_error', { reason: 'network' });
     } finally {

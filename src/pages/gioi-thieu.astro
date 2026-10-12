@@ -1,0 +1,15 @@
+---
+import SitePage from '../layouts/SitePage.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Reasons from '../components/Reasons.astro';
+import Process from '../components/Process.astro';
+import { company } from '../data/site';
+---
+<SitePage title="Về 3tsmart – Thiết bị & giải pháp nhà thông minh" description="Thông tin liên hệ 3tsmart tại Cầu Giấy, Hà Nội và cách tiếp cận tư vấn thiết bị nhà thông minh từ nhu cầu thực tế.">
+  <PageIntro eyebrow="Về 3tsmart" title="Công nghệ cho một ngôi nhà dễ sống hơn." lead="Chúng tôi hướng đến việc làm rõ nhu cầu, lựa chọn thiết bị phù hợp và giúp người dùng hiểu phương án trước khi quyết định." />
+  <section class="container-x grid gap-10 py-12 lg:grid-cols-[1.3fr_1fr]">
+    <div><h2 class="text-3xl">Không bắt đầu từ một danh sách thiết bị.</h2><p class="mt-5 text-lg text-muted">Nhà thông minh nên giải quyết những điều gần gũi: bật đèn thuận tiện, quản lý ra vào, đóng mở rèm hay kiểm soát thiết bị khi vắng nhà. 3tsmart là đầu mối để bạn trao đổi nhu cầu, tìm hiểu thiết bị và yêu cầu phương án phù hợp với không gian.</p><p class="mt-5 text-muted">Website cung cấp danh mục theo công dụng và hướng dẫn lựa chọn. Model, giá, điều kiện lắp đặt và bảo hành cần được xác nhận trong báo giá. Ảnh minh họa không được dùng làm bằng chứng công trình hay đội ngũ.</p><a href="/san-pham" class="btn-outline mt-6">Khám phá danh mục thiết bị</a></div>
+    <aside class="card bg-surface p-7"><h2 class="text-xl">Thông tin liên hệ</h2><dl class="mt-5 space-y-5">{company.legalName && <div><dt class="text-sm text-muted">Tên pháp lý</dt><dd class="font-semibold">{company.legalName}</dd></div>}<div><dt class="text-sm text-muted">Thương hiệu</dt><dd class="font-semibold">{company.brand}</dd></div><div><dt class="text-sm text-muted">Mã số thuế</dt><dd class="font-semibold">{company.taxId}</dd></div><div><dt class="text-sm text-muted">Địa chỉ liên hệ</dt><dd>{company.address}</dd></div><div><dt class="text-sm text-muted">Hotline</dt><dd><a href={`tel:${company.hotlineTel}`} class="font-semibold text-brand-700">{company.hotline}</a></dd></div><div><dt class="text-sm text-muted">Email</dt><dd><a href={`mailto:${company.email}`} class="break-all text-brand-700">{company.email}</a></dd></div></dl></aside>
+  </section>
+  <Reasons /><Process />
+</SitePage>

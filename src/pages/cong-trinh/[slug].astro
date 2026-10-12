@@ -1,0 +1,16 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { Image } from 'astro:assets';
+import SitePage from '../../layouts/SitePage.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import { publishedProjects } from '../../data/site';
+export const getStaticPaths = (() => publishedProjects.map((item) => ({ params: { slug: item.slug }, props: { item } }))) satisfies GetStaticPaths;
+const { item } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
+---
+<SitePage title={`${item.name} | Công trình 3tsmart`} description={item.summary}>
+  <PageIntro eyebrow={item.type} title={item.name} lead={item.summary} parent={{ href: '/cong-trinh', label: 'Công trình' }} />
+  <article class="container-x grid gap-10 py-12 lg:grid-cols-[1.4fr_1fr]">
+    <Image src={item.image} widths={[640, 1000]} sizes="(min-width:1024px) 60vw, 100vw" alt={item.name} class="w-full rounded-xl" />
+    <div><h2 class="text-2xl">Thông tin hồ sơ</h2><dl class="mt-5 space-y-4"><div><dt class="text-sm text-muted">Khu vực</dt><dd class="font-semibold">{item.location}</dd></div><div><dt class="text-sm text-muted">Bàn giao</dt><dd class="font-semibold">{item.completed}</dd></div></dl><h2 class="mt-8 text-xl">Hạng mục thực hiện</h2><ul class="mt-4 list-disc space-y-2 pl-5">{item.scope.map((s) => <li>{s}</li>)}</ul><a href="/lien-he" class="btn-primary mt-8">Trao đổi công trình tương tự</a></div>
+  </article>
+</SitePage>

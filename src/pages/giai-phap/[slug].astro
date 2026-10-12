@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { Image } from 'astro:assets';
+import SitePage from '../../layouts/SitePage.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import Process from '../../components/Process.astro';
+import Icon from '../../components/Icon.astro';
+import { solutions } from '../../data/site';
+export const getStaticPaths = (() => solutions.map((item) => ({ params: { slug: item.id }, props: { item } }))) satisfies GetStaticPaths;
+const { item } = Astro.props as InferGetStaticPropsType<typeof getStaticPaths>;
+---
+<SitePage title={`Giải pháp nhà thông minh cho ${item.label.toLowerCase()} | 3tsmart`} description={item.desc}>
+  <PageIntro eyebrow={item.label} title={item.title} lead={item.desc} parent={{ href: '/giai-phap', label: 'Giải pháp' }} />
+  <div class="container-x grid items-start gap-10 py-12 lg:grid-cols-2">
+    <figure><Image src={item.image} widths={[600, 1000]} sizes="(min-width:1024px) 50vw, 100vw" alt={`Không gian ${item.label.toLowerCase()} – ảnh minh họa`} class="aspect-[4/3] w-full rounded-xl object-cover" /><figcaption class="mt-2 text-xs text-muted">Ảnh minh họa giải pháp, không phải công trình đã triển khai của 3tsmart.</figcaption></figure>
+    <div><h2 class="text-2xl">Hạng mục nên trao đổi</h2><ul class="mt-5 grid gap-3 sm:grid-cols-2">{item.devices.map((d) => <li class="card flex items-center gap-3 p-4"><Icon name="Check" class="size-4 shrink-0 text-brand-700" />{d}</li>)}</ul><h2 class="mt-8 text-xl">Định hướng lựa chọn</h2><ul class="mt-4 list-disc space-y-2 pl-5 text-muted">{item.benefits.map((b) => <li>{b}</li>)}</ul><p class="mt-6 text-muted">Đây là gợi ý trao đổi, không phải cấu hình chốt sẵn. Hãy chuẩn bị bản vẽ hoặc ảnh hiện trạng, ngân sách dự kiến và các tình huống muốn tự động hóa.</p><a href={`/lien-he?khong-gian=${encodeURIComponent(item.formValue)}#lead-form`} class="btn-primary mt-6">Trao đổi phương án cho {item.label.toLowerCase()}</a></div>
+  </div>
+  <Process />
+</SitePage>

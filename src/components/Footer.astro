@@ -5,7 +5,6 @@ import Icon from './Icon.astro';
 import BrandIcon from './BrandIcon.astro';
 import { company, nav } from '../data/site';
 interface Props { home?: boolean }
-const { home = true } = Astro.props;
 const year = new Date().getFullYear();
 ---
 <footer class="bg-navy-950 text-slate-300">
@@ -14,7 +13,7 @@ const year = new Date().getFullYear();
       <Image src={logo} alt="3tsmart" width={180} height={85} class="h-12 w-auto" />
       <p class="mt-4 max-w-sm text-[15px]">Tư vấn, cung cấp và lắp đặt thiết bị điện công nghệ, giải pháp nhà thông minh trọn gói cho gia đình và doanh nghiệp.</p>
       <ul class="mt-5 flex gap-2">
-        {([['facebook', 'Facebook'], ['youtube', 'YouTube'], ['tiktok', 'TikTok']] as const).map(([k, label]) => (
+        {([['facebook', 'Facebook'], ['youtube', 'YouTube'], ['tiktok', 'TikTok']] as const).filter(([k]) => company.social[k]).map(([k, label]) => (
           <li><a href={company.social[k]} target="_blank" rel="noopener" class="grid size-11 place-items-center rounded-xl border border-white/10 text-slate-300 transition hover:border-brand-400 hover:text-brand-400" aria-label={`3tsmart trên ${label}`}><BrandIcon name={k} class="size-5" /></a></li>
         ))}
         <li><a href={company.zalo} target="_blank" rel="noopener" data-track="click_zalo" data-track-label="footer" class="grid size-11 place-items-center rounded-xl border border-white/10 text-slate-300 transition hover:border-brand-400 hover:text-brand-400" aria-label="Chat Zalo với 3tsmart"><BrandIcon name="zalo" class="size-6" /></a></li>
@@ -23,7 +22,7 @@ const year = new Date().getFullYear();
     <nav aria-label="Liên kết nhanh">
       <h2 class="text-sm font-bold uppercase tracking-wider text-white">Khám phá</h2>
       <ul class="mt-4 space-y-1">
-        {nav.map((n) => <li><a href={home ? n.href : `/${n.href}`} class="inline-flex min-h-9 items-center transition hover:text-brand-400">{n.label}</a></li>)}
+        {nav.map((n) => <li><a href={n.href} class="inline-flex min-h-9 items-center transition hover:text-brand-400">{n.label}</a></li>)}
       </ul>
     </nav>
     <nav aria-label="Chính sách">
@@ -37,7 +36,7 @@ const year = new Date().getFullYear();
     <div>
       <h2 class="text-sm font-bold uppercase tracking-wider text-white">Liên hệ</h2>
       <address class="mt-4 space-y-3 text-[15px] not-italic">
-        <p class="font-semibold text-white">{company.legalName}</p>
+        <p class="font-semibold text-white">{company.legalName || company.brand}</p>
         <p>MST: {company.taxId}</p>
         <p class="flex gap-2"><Icon name="MapPin" class="mt-1 size-4 shrink-0 text-brand-400" />{company.address}</p>
         <p><a href={`tel:${company.hotlineTel}`} data-track="click_call" data-track-label="footer" class="flex items-center gap-2 transition hover:text-brand-400"><Icon name="Phone" class="size-4 text-brand-400" />{company.hotline}</a></p>

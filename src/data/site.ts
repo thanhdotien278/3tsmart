@@ -1,206 +1,81 @@
-/**
- * Toàn bộ nội dung landing page nằm ở file này.
- * Các mục đánh dấu "PLACEHOLDER" là dữ liệu mẫu – cần thay bằng thông tin thật của 3tsmart trước khi chạy chính thức.
- */
 import type { ImageMetadata } from 'astro';
 import heroLiving from '../assets/photos/hero-living.jpg';
-import aboutTechnician from '../assets/photos/about-technician.jpg';
-import aboutSmartlock from '../assets/photos/about-smartlock.jpg';
 import solApartment from '../assets/photos/sol-apartment.jpg';
 import solTownhouse from '../assets/photos/sol-townhouse.jpg';
 import solVilla from '../assets/photos/sol-villa.jpg';
 import solHotel from '../assets/photos/sol-hotel.jpg';
 import diagramLiving from '../assets/photos/diagram-living.jpg';
-import prjVillaPool from '../assets/photos/prj-villa-pool.jpg';
-import prjApartment from '../assets/photos/prj-apartment.jpg';
-import prjKitchen from '../assets/photos/prj-kitchen.jpg';
-import prjDining from '../assets/photos/prj-dining.jpg';
-import prjVilla2 from '../assets/photos/prj-villa2.jpg';
-import prjOffice from '../assets/photos/prj-office.jpg';
-import prjLiving from '../assets/photos/prj-living.jpg';
-import prjStairs from '../assets/photos/prj-stairs.jpg';
 
-// Thông tin liên hệ & pháp lý. PLACEHOLDER còn lại: legalName, messenger, social.
+// Chỉ bật tên pháp lý, giờ mở cửa và kênh xã hội sau khi được xác nhận.
 export const company = {
-  brand: '3tsmart',
-  legalName: 'Công ty TNHH Công nghệ 3T Smart',
-  taxId: '6000916516',
-  slogan: 'Nhà thông minh – Tiện nghi hơn, an toàn hơn',
-  hotline: '0985 834 566',
-  hotlineTel: '+84985834566',
-  zalo: 'https://zalo.me/0985834566',
-  messenger: 'https://m.me/3tsmart',
-  email: 'lienhe@3tsmart.org',
+  brand: '3tsmart', legalName: '', taxId: '6000916516',
+  slogan: 'Công nghệ cho một ngôi nhà dễ sống hơn.',
+  hotline: '0985 834 566', hotlineTel: '+84985834566',
+  zalo: 'https://zalo.me/0985834566', messenger: '', email: 'lienhe@3tsmart.org',
   address: 'Số 26 phố Dịch Vọng Hậu, phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội',
   postalAddress: { street: 'Số 26 phố Dịch Vọng Hậu', locality: 'Phường Dịch Vọng Hậu, Cầu Giấy', region: 'Hà Nội' },
   mapQuery: 'Số 26 phố Dịch Vọng Hậu, phường Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Vietnam',
-  hours: 'Thứ 2 – Thứ 7: 8:00 – 18:00 · Chủ nhật: 8:30 – 12:00',
-  social: {
-    facebook: 'https://facebook.com/3tsmart',
-    youtube: 'https://youtube.com/@3tsmart',
-    tiktok: 'https://tiktok.com/@3tsmart',
-  },
+  hours: '', social: { facebook: '', youtube: '', tiktok: '' },
 };
-
+export const hero = { image: heroLiving as ImageMetadata };
 export const nav = [
-  { href: '#gioi-thieu', label: 'Giới thiệu' },
-  { href: '#san-pham', label: 'Sản phẩm' },
-  { href: '#giai-phap', label: 'Giải pháp' },
-  { href: '#ly-do', label: 'Lý do chọn chúng tôi' },
-  { href: '#du-an', label: 'Dự án' },
-  { href: '#lien-he', label: 'Liên hệ' },
+  { href: '/san-pham', label: 'Thiết bị' }, { href: '/giai-phap', label: 'Giải pháp' },
+  { href: '/cong-trinh', label: 'Công trình' }, { href: '/kien-thuc', label: 'Kiến thức' },
+  { href: '/gioi-thieu', label: 'Về 3tsmart' }, { href: '/lien-he', label: 'Liên hệ' },
 ];
-
-export const hero = {
-  image: heroLiving as ImageMetadata,
-  title: 'Nhà thông minh – Tiện nghi hơn, an toàn hơn cùng 3tsmart',
-  subtitle:
-    'Tư vấn, cung cấp và lắp đặt trọn gói công tắc, khóa cửa, camera, rèm tự động… điều khiển bằng một ứng dụng hoặc giọng nói. Lắp được cho cả nhà đang ở, không cần đục tường.',
-};
-
-// PLACEHOLDER: số liệu uy tín
-export const stats = [
-  { value: 8, suffix: '+', label: 'Năm kinh nghiệm' },
-  { value: 1200, suffix: '+', label: 'Công trình đã triển khai' },
-  { value: 5000, suffix: '+', label: 'Khách hàng tin dùng' },
-  { value: 24, suffix: ' tháng', label: 'Bảo hành chính hãng' },
-];
-
-export const about = {
-  images: [aboutTechnician, aboutSmartlock] as ImageMetadata[],
-  story:
-    '3tsmart ra đời từ một nhóm kỹ sư điện – điện tử với mong muốn đưa công nghệ nhà thông minh đến gần hơn với mọi gia đình Việt: dễ dùng, bền bỉ và có người hỗ trợ tận nơi khi cần.',
-  mission:
-    'Sứ mệnh của chúng tôi là giúp mỗi ngôi nhà an toàn hơn, tiết kiệm điện hơn và tiện nghi hơn – với chi phí hợp lý và dịch vụ hậu mãi đáng tin cậy.',
-  values: [
-    { icon: 'ShieldCheck', title: 'Chính hãng', text: 'Chỉ phân phối thiết bị có nguồn gốc rõ ràng, tem bảo hành đầy đủ.' },
-    { icon: 'Handshake', title: 'Tận tâm', text: 'Tư vấn đúng nhu cầu, không bán thừa thiết bị không cần thiết.' },
-    { icon: 'Wrench', title: 'Chuyên nghiệp', text: 'Kỹ thuật viên được đào tạo bài bản, thi công gọn gàng, đúng hẹn.' },
-  ],
-  // PLACEHOLDER: thương hiệu/đối tác phân phối – chỉ hiển thị dạng chữ cho tới khi được phép dùng logo hãng
-  partners: ['Google Home', 'Amazon Alexa', 'Apple Home', 'Tuya Smart', 'Zigbee 3.0', 'Matter'],
-};
-
 export const categories = [
-  { id: 'cong-tac', icon: 'ToggleRight', art: 'switch', name: 'Công tắc & ổ cắm thông minh', desc: 'Mặt kính cảm ứng WiFi/Zigbee, hẹn giờ, đo điện năng, thay trực tiếp công tắc cũ.' },
-  { id: 'khoa-cua', icon: 'LockKeyhole', art: 'lock', name: 'Khóa cửa thông minh', desc: 'Mở bằng vân tay, khuôn mặt, thẻ từ, mã số hoặc từ xa qua điện thoại.' },
-  { id: 'camera', icon: 'Camera', art: 'camera', name: 'Camera & chuông cửa có hình', desc: 'Giám sát 2K, đàm thoại 2 chiều, cảnh báo người lạ ngay trên điện thoại.' },
-  { id: 'rem', icon: 'Blinds', art: 'curtain', name: 'Rèm cửa tự động', desc: 'Motor rèm êm ái, mở/đóng theo lịch, theo ánh sáng hoặc bằng giọng nói.' },
-  { id: 'hong-ngoai', icon: 'Tv', art: 'ir', name: 'Điều khiển hồng ngoại', desc: 'Biến điều hòa, TV, quạt sẵn có thành thiết bị điều khiển qua app.' },
-  { id: 'cam-bien', icon: 'Radar', art: 'sensor', name: 'Cảm biến', desc: 'Chuyển động, cửa, khói, nhiệt độ – độ ẩm, rò nước; cảnh báo tức thì.' },
-  { id: 'trung-tam', icon: 'Router', art: 'hub', name: 'Hub & màn hình trung tâm', desc: 'Bộ não của ngôi nhà, chạy kịch bản tự động ngay cả khi mất Internet.' },
-  { id: 'chieu-sang', icon: 'Lightbulb', art: 'light', name: 'Chiếu sáng thông minh', desc: 'Đèn LED, dimmer đổi màu – độ sáng theo ngữ cảnh, tiết kiệm điện.' },
+  { id: 'cong-tac', group: 'dien', icon: 'ToggleRight', art: 'switch', name: 'Công tắc & ổ cắm', desc: 'Điều khiển đèn, hẹn giờ và quản lý thiết bị điện.', checks: ['Đế âm và kích thước mặt công tắc', 'Có hoặc không có dây trung tính (N)', 'Tải điện và chuẩn kết nối'], needs: 'Ảnh công tắc hiện tại, số mạch đèn và thiết bị cần điều khiển.' },
+  { id: 'khoa-cua', group: 'an-ninh', icon: 'LockKeyhole', art: 'lock', name: 'Khóa cửa thông minh', desc: 'Chọn cách mở cửa phù hợp với cả gia đình.', checks: ['Chất liệu, độ dày và chiều mở cửa', 'Kích thước đố cửa và thân khóa', 'Cách mở dự phòng và nguồn pin'], needs: 'Ảnh hai mặt cửa, cạnh cửa và kích thước đố cửa.' },
+  { id: 'camera', group: 'an-ninh', icon: 'Camera', art: 'camera', name: 'Camera & chuông cửa', desc: 'Quan sát lối vào và trao đổi với khách từ xa.', checks: ['Vị trí trong nhà hay ngoài trời', 'Nguồn điện, WiFi hoặc dây mạng', 'Góc nhìn, lưu trữ và quyền riêng tư'], needs: 'Vị trí lắp, phạm vi muốn quan sát và hạ tầng mạng.' },
+  { id: 'rem', group: 'tien-nghi', icon: 'Blinds', art: 'curtain', name: 'Rèm cửa tự động', desc: 'Đóng mở rèm theo lịch hoặc theo ngữ cảnh.', checks: ['Loại rèm và chiều dài ray', 'Khối lượng vải và tải motor', 'Vị trí nguồn điện, hộp rèm'], needs: 'Ảnh ô cửa, chiều rộng, chiều cao và loại rèm dự kiến.' },
+  { id: 'hong-ngoai', group: 'tien-nghi', icon: 'Tv', art: 'ir', name: 'Điều khiển điều hòa, TV', desc: 'Tìm phương án điều khiển cho thiết bị sẵn có.', checks: ['Hãng, model và loại remote', 'Hồng ngoại hay kiểu điều khiển khác', 'Vị trí bộ điều khiển trong phòng'], needs: 'Ảnh remote và model điều hòa, TV hoặc thiết bị muốn điều khiển.' },
+  { id: 'cam-bien', group: 'an-ninh', icon: 'Radar', art: 'sensor', name: 'Cảm biến thông minh', desc: 'Tạo tự động hóa dựa trên chuyển động và môi trường.', checks: ['Chuyển động, hiện diện hay cửa mở', 'Khoảng cách và vùng phát hiện', 'Nguồn pin và hub tương thích'], needs: 'Không gian lắp và tình huống tự động hóa hoặc cảnh báo mong muốn.' },
+  { id: 'trung-tam', group: 'tien-nghi', icon: 'Router', art: 'hub', name: 'Bộ điều khiển trung tâm', desc: 'Kết nối thiết bị trong cùng một hệ thống.', checks: ['Hệ sinh thái và chuẩn kết nối', 'Số lượng, phạm vi thiết bị', 'Khả năng chạy kịch bản cục bộ'], needs: 'Danh sách thiết bị sẵn có và ứng dụng bạn muốn sử dụng.' },
+  { id: 'chieu-sang', group: 'dien', icon: 'Lightbulb', art: 'light', name: 'Chiếu sáng thông minh', desc: 'Thiết kế ánh sáng theo sinh hoạt và không gian.', checks: ['Loại đèn, nguồn và khả năng dimmer', 'Nhiệt màu, độ sáng mong muốn', 'Phương án điều khiển và dây điện'], needs: 'Bản vẽ hoặc ảnh trần, loại đèn và các khu vực cần điều khiển.' },
 ];
-
 export const productTabs = [
-  { id: 'all', label: 'Tất cả' },
-  { id: 'dien', label: 'Công tắc & điện' },
-  { id: 'an-ninh', label: 'An ninh' },
-  { id: 'tien-nghi', label: 'Tiện nghi' },
+  { id: 'all', label: 'Tất cả thiết bị' }, { id: 'dien', label: 'Điện & chiếu sáng' },
+  { id: 'an-ninh', label: 'An ninh & cảm biến' }, { id: 'tien-nghi', label: 'Tiện nghi & điều khiển' },
 ];
-
-// PLACEHOLDER: danh sách sản phẩm bán chạy (giá để "Liên hệ" cho tới khi 3tsmart chốt chính sách giá)
-export const bestSellers = [
-  { id: 'sp-cong-tac-3', group: 'dien', art: 'switch', name: 'Công tắc cảm ứng mặt kính 3 nút', specs: ['WiFi / Zigbee 3.0', 'Viền LED báo trạng thái', 'Không cần dây N'], price: 'Liên hệ', badge: 'Bán chạy' },
-  { id: 'sp-o-cam', group: 'dien', art: 'socket', name: 'Ổ cắm thông minh đo điện năng', specs: ['16A – 3500W', 'Thống kê kWh theo ngày', 'Hẹn giờ, đếm ngược'], price: 'Liên hệ', badge: null },
-  { id: 'sp-khoa', group: 'an-ninh', art: 'lock', name: 'Khóa cửa vân tay & khuôn mặt 3D', specs: ['6 cách mở khóa', 'Pin dùng 8–12 tháng', 'Báo động phá khóa'], price: 'Liên hệ', badge: 'Ưu đãi -10%' },
-  { id: 'sp-camera', group: 'an-ninh', art: 'camera', name: 'Camera WiFi xoay 360° 2K', specs: ['Hồng ngoại ban đêm 10m', 'Nhận diện người', 'Lưu trữ thẻ nhớ & cloud'], price: 'Liên hệ', badge: null },
-  { id: 'sp-chuong', group: 'an-ninh', art: 'doorbell', name: 'Chuông cửa có hình thông minh', specs: ['Đàm thoại 2 chiều', 'Góc nhìn 160°', 'Pin sạc hoặc dây'], price: 'Liên hệ', badge: 'Mới' },
-  { id: 'sp-rem', group: 'tien-nghi', art: 'curtain', name: 'Motor rèm thông minh siêu êm', specs: ['Độ ồn < 35dB', 'Kéo tới 50kg', 'Ray chịu tải 6m'], price: 'Liên hệ', badge: null },
-  { id: 'sp-ir', group: 'tien-nghi', art: 'ir', name: 'Bộ điều khiển hồng ngoại đa năng', specs: ['Hỗ trợ 8.000+ mẫu thiết bị', 'Cảm biến nhiệt – ẩm', 'Phủ sóng 360°'], price: 'Liên hệ', badge: 'Bán chạy' },
-  { id: 'sp-hub', group: 'tien-nghi', art: 'hub', name: 'Bộ trung tâm Zigbee Hub', specs: ['Kết nối 128 thiết bị', 'Chạy offline', 'Tương thích Matter'], price: 'Liên hệ', badge: null },
-];
-
 export const solutions = [
-  {
-    id: 'can-ho', icon: 'Building', label: 'Căn hộ', formValue: 'Căn hộ chung cư', image: solApartment,
-    title: 'Căn hộ chung cư thông minh',
-    desc: 'Nâng cấp căn hộ trong 1 ngày, giữ nguyên nội thất. Điều khiển mọi thứ từ điện thoại, kể cả khi đi xa.',
-    devices: ['Công tắc cảm ứng toàn nhà', 'Khóa cửa vân tay', 'Rèm phòng khách tự động', 'Điều khiển điều hòa, TV', 'Cảm biến cửa & khói'],
-    benefits: ['Lắp nhanh, không đục phá', 'Kịch bản “Về nhà / Ra khỏi nhà”', 'Chi phí tối ưu theo diện tích'],
-  },
-  {
-    id: 'nha-pho', icon: 'House', label: 'Nhà phố', formValue: 'Nhà phố', image: solTownhouse,
-    title: 'Nhà phố an toàn, tiện nghi',
-    desc: 'Giải pháp nhiều tầng: an ninh cổng – cửa, chiếu sáng cầu thang theo cảm biến, quản lý điện năng từng tầng.',
-    devices: ['Camera & chuông cửa có hình', 'Khóa cổng/khóa cửa thông minh', 'Đèn cầu thang cảm biến', 'Công tắc bình nóng lạnh hẹn giờ', 'Hub trung tâm đa tầng'],
-    benefits: ['Cảnh báo xâm nhập tức thì', 'Giảm điện năng chiếu sáng', 'Mở cửa từ xa cho người thân'],
-  },
-  {
-    id: 'biet-thu', icon: 'Castle', label: 'Biệt thự', formValue: 'Biệt thự', image: solVilla,
-    title: 'Biệt thự – điều khiển trọn gói',
-    desc: 'Thiết kế hệ thống đồng bộ cho không gian lớn: màn hình trung tâm, âm thanh – ánh sáng theo ngữ cảnh, sân vườn tự động.',
-    devices: ['Màn hình điều khiển cảm ứng', 'Chiếu sáng dimmer theo ngữ cảnh', 'Rèm & cổng tự động', 'Tưới cây, bơm hồ theo lịch', 'Camera AI quanh nhà'],
-    benefits: ['Thiết kế riêng theo bản vẽ', 'Một chạm cho cả ngôi nhà', 'Bảo trì định kỳ tận nơi'],
-  },
-  {
-    id: 'khach-san', icon: 'Hotel', label: 'Khách sạn / Văn phòng', formValue: 'Khách sạn / Văn phòng', image: solHotel,
-    title: 'Khách sạn & văn phòng tiết kiệm điện',
-    desc: 'Quản lý tập trung nhiều phòng, tự ngắt điện khi không có người, nâng tầm trải nghiệm khách lưu trú.',
-    devices: ['Thẻ từ & khóa phòng thông minh', 'Cảm biến hiện diện tắt điện', 'Điều khiển điều hòa tập trung', 'Rèm & đèn theo kịch bản chào khách', 'Báo cáo năng lượng'],
-    benefits: ['Tiết kiệm 20–30% điện năng*', 'Quản lý từ xa nhiều chi nhánh', 'Chiết khấu theo dự án'],
-  },
+  { id: 'can-ho', icon: 'Building', label: 'Căn hộ', formValue: 'Căn hộ chung cư', image: solApartment, title: 'Nâng cấp từ những điều dùng mỗi ngày', desc: 'Ưu tiên thiết bị giúp cuộc sống thuận tiện hơn. Khả năng thay thế và đi dây cần kiểm tra theo hiện trạng căn hộ.', devices: ['Công tắc & chiếu sáng', 'Khóa cửa', 'Rèm phòng khách', 'Điều khiển điều hòa'], benefits: ['Bắt đầu từ từng phòng', 'Thống nhất hệ sinh thái', 'Làm rõ phần cần cải tạo'] },
+  { id: 'nha-pho', icon: 'House', label: 'Nhà phố', formValue: 'Nhà phố', image: solTownhouse, title: 'Liên kết các tầng, chăm chút từng khu vực', desc: 'Phân chia khu vực điều khiển và tính toán kết nối giữa các tầng, từ cửa vào đến cầu thang và phòng ngủ.', devices: ['Camera & chuông cửa', 'Khóa cửa', 'Cảm biến cầu thang', 'Hub và mạng nội bộ'], benefits: ['Phân vùng rõ ràng', 'Tính toán vùng phủ sóng', 'Kịch bản theo sinh hoạt'] },
+  { id: 'biet-thu', icon: 'Castle', label: 'Biệt thự', formValue: 'Biệt thự', image: solVilla, title: 'Thiết kế đồng bộ cùng không gian sống', desc: 'Trao đổi từ bản vẽ để phối hợp thiết bị, nội thất và hệ thống điện. Cấu hình được lựa chọn theo từng khu vực sử dụng.', devices: ['Màn hình trung tâm', 'Chiếu sáng theo ngữ cảnh', 'Rèm tự động', 'An ninh khuôn viên'], benefits: ['Phối hợp với thiết kế', 'Kiểm tra tải và kết nối', 'Dự trù mở rộng hệ thống'] },
+  { id: 'khach-san', icon: 'Hotel', label: 'Văn phòng / Lưu trú', formValue: 'Khách sạn / Văn phòng', image: solHotel, title: 'Thiết bị phục vụ vận hành', desc: 'Lựa chọn theo quy mô, cách quản lý và nhu cầu sử dụng. Chi phí và hiệu quả cần đánh giá trên cấu hình cụ thể.', devices: ['Khóa & kiểm soát ra vào', 'Cảm biến hiện diện', 'Điều khiển điều hòa', 'Quản lý chiếu sáng'], benefits: ['Phân quyền sử dụng', 'Phương án cho nhiều phòng', 'Làm rõ yêu cầu bảo trì'] },
 ];
-
 export const diagram = {
   image: diagramLiving,
   hotspots: [
-    { x: 62, y: 14, icon: 'Lightbulb', title: 'Đèn âm trần dimmer', text: 'Tự giảm độ sáng buổi tối, bật sáng dần khi có người.' },
-    { x: 52, y: 40, icon: 'ToggleRight', title: 'Công tắc cảm ứng', text: 'Điều khiển đèn bếp từ tường, app hoặc giọng nói.' },
-    { x: 41, y: 30, icon: 'Gauge', title: 'Điều hòa thông minh', text: 'Tự bật trước khi về nhà, giữ nhiệt độ 26°C.' },
-    { x: 8, y: 44, icon: 'Blinds', title: 'Rèm tự động', text: 'Mở rèm lúc 6:30 sáng, đóng khi trời nắng gắt.' },
-    { x: 33, y: 49, icon: 'Radar', title: 'Cảm biến cửa', text: 'Báo ngay khi cửa kính mở lúc bạn vắng nhà.' },
-    { x: 36, y: 18, icon: 'Mic', title: 'Loa trợ lý giọng nói', text: '“Hey Google, chế độ xem phim”.' },
-    { x: 65, y: 51, icon: 'Tv', title: 'Điều khiển hồng ngoại', text: 'TV, máy chiếu, quạt đều điều khiển được qua app.' },
-    { x: 80, y: 61, icon: 'Router', title: 'Hub trung tâm', text: 'Kết nối mọi thiết bị, chạy kịch bản kể cả khi mất mạng.' },
+    { x: 62, y: 14, icon: 'Lightbulb', title: 'Chiếu sáng', text: 'Gợi ý điều chỉnh độ sáng theo thời điểm sử dụng.' },
+    { x: 52, y: 40, icon: 'ToggleRight', title: 'Công tắc', text: 'Kiểm tra loại tải, dây điện và chuẩn kết nối.' },
+    { x: 41, y: 30, icon: 'Gauge', title: 'Điều hòa', text: 'Chọn cách điều khiển tương thích với model hiện có.' },
+    { x: 8, y: 44, icon: 'Blinds', title: 'Rèm', text: 'Kiểm tra ray, tải motor và vị trí nguồn điện.' },
   ],
 };
-
 export const reasons = [
-  { icon: 'BadgeCheck', title: 'Hàng chính hãng 100%', text: 'Mỗi thiết bị có hóa đơn, tem bảo hành và nguồn gốc rõ ràng; phát hiện hàng giả hoàn tiền gấp đôi.' },
-  { icon: 'ShieldCheck', title: 'Bảo hành 24 tháng, 1 đổi 1', text: 'Lỗi do nhà sản xuất trong 30 ngày đầu được đổi mới ngay, không cần chờ gửi hãng.' },
-  { icon: 'HardHat', title: 'Lắp đặt chuyên nghiệp', text: 'Kỹ thuật viên thi công gọn gàng, đi dây âm, dọn dẹp sạch sẽ và cấu hình sẵn trước khi bàn giao.' },
-  { icon: 'MessagesSquare', title: 'Tư vấn & khảo sát miễn phí', text: 'Khảo sát tận nơi, lên phương án và báo giá chi tiết từng thiết bị mà không thu phí.' },
-  { icon: 'Headset', title: 'Hỗ trợ kỹ thuật nhanh', text: 'Phản hồi trong 30 phút qua hotline/Zalo, có mặt tại nhà trong 24 giờ nếu cần xử lý trực tiếp.' },
-  { icon: 'PiggyBank', title: 'Giá cạnh tranh, tiết kiệm điện', text: 'Nhập trực tiếp từ nhà phân phối; kịch bản hẹn giờ – cảm biến giúp giảm hóa đơn điện hằng tháng.' },
+  { icon: 'ClipboardList', title: 'Cấu hình trước, quyết định sau', text: 'Trao đổi danh sách thiết bị, model và yêu cầu lắp đặt trước khi chốt phương án.' },
+  { icon: 'FileText', title: 'Làm rõ chi phí', text: 'Tách thiết bị, phụ kiện và phần lắp đặt trong yêu cầu báo giá.' },
+  { icon: 'Headset', title: 'Một đầu mối liên hệ', text: 'Gọi hotline hoặc nhắn Zalo để trao đổi về thiết bị và hỗ trợ sử dụng.' },
 ];
-
 export const process = [
-  { icon: 'MessagesSquare', title: 'Tư vấn', text: 'Lắng nghe nhu cầu, ngân sách qua điện thoại, Zalo hoặc tại showroom.' },
-  { icon: 'ClipboardList', title: 'Khảo sát & báo giá', text: 'Khảo sát hiện trạng, đề xuất phương án và báo giá minh bạch.' },
-  { icon: 'Package', title: 'Cung cấp thiết bị', text: 'Thiết bị chính hãng, kiểm tra kỹ trước khi giao đến công trình.' },
-  { icon: 'SlidersHorizontal', title: 'Lắp đặt & cấu hình', text: 'Thi công, cài đặt app, tạo kịch bản theo thói quen gia đình.' },
-  { icon: 'ShieldCheck', title: 'Bàn giao & bảo hành', text: 'Hướng dẫn sử dụng, bàn giao phiếu bảo hành, hỗ trợ trọn đời.' },
+  { icon: 'MessagesSquare', title: 'Trao đổi nhu cầu', text: 'Không gian, hiện trạng, mong muốn và ngân sách dự kiến.' },
+  { icon: 'ClipboardList', title: 'Khảo sát hiện trạng', text: 'Kiểm tra mặt bằng, hạ tầng điện và mạng trước khi chọn cấu hình.' },
+  { icon: 'FileText', title: 'Thống nhất báo giá', text: 'Danh sách thiết bị, phụ kiện, phần thi công và lịch dự kiến.' },
+  { icon: 'SlidersHorizontal', title: 'Lắp đặt & cấu hình', text: 'Lắp thiết bị, cài ứng dụng và kiểm tra các kịch bản đã thống nhất.' },
+  { icon: 'ShieldCheck', title: 'Bàn giao sử dụng', text: 'Hướng dẫn thao tác, tài khoản và điều kiện bảo hành từng thiết bị.' },
 ];
-
-// PLACEHOLDER: ảnh minh hoạ – thay bằng ảnh công trình thật của 3tsmart
-export const projects = [
-  { image: prjVillaPool, name: 'Biệt thự ven biển', type: 'Biệt thự', location: 'Đà Nẵng', devices: 'Màn hình trung tâm, rèm, chiếu sáng, camera AI' },
-  { image: prjApartment, name: 'Căn hộ 2PN Vinhomes', type: 'Căn hộ', location: 'Hà Nội', devices: 'Công tắc cảm ứng, khóa vân tay, rèm' },
-  { image: prjKitchen, name: 'Căn hộ Studio', type: 'Căn hộ', location: 'TP.HCM', devices: 'Công tắc, cảm biến khói, điều khiển IR' },
-  { image: prjVilla2, name: 'Biệt thự sân vườn', type: 'Biệt thự', location: 'Hải Phòng', devices: 'Cổng tự động, tưới cây, camera' },
-  { image: prjDining, name: 'Nhà phố 4 tầng', type: 'Nhà phố', location: 'Hà Nội', devices: 'Chuông cửa có hình, đèn cầu thang cảm biến' },
-  { image: prjOffice, name: 'Văn phòng công ty', type: 'Văn phòng', location: 'Hà Nội', devices: 'Cảm biến hiện diện, điều hòa tập trung' },
-  { image: prjLiving, name: 'Penthouse', type: 'Căn hộ', location: 'TP.HCM', devices: 'Dimmer, rèm, loa giọng nói' },
-  { image: prjStairs, name: 'Nhà phố hiện đại', type: 'Nhà phố', location: 'Bắc Ninh', devices: 'Khóa thông minh, camera, hub Zigbee' },
-];
-
-// PLACEHOLDER: chỉ dùng phản hồi thật, có sự đồng ý của khách hàng
-export const testimonials = [
-  { name: 'Anh Minh Tuấn', project: 'Căn hộ 3PN · Cầu Giấy', rating: 5, text: 'Đội kỹ thuật lắp trong một buổi sáng, không phải đục tường. Giờ tối về chỉ cần nói “về nhà” là đèn, điều hòa, rèm tự chạy.' },
-  { name: 'Chị Thu Hà', project: 'Nhà phố · Long Biên', rating: 5, text: 'Tôi thích nhất chuông cửa có hình và khóa vân tay – con đi học về tự mở cửa, tôi xem được trên điện thoại lúc đang ở công ty.' },
-  { name: 'Anh Quốc Bảo', project: 'Khách sạn 24 phòng · Hạ Long', rating: 5, text: 'Sau 3 tháng dùng cảm biến hiện diện và thẻ từ, hóa đơn điện giảm rõ rệt. Báo giá minh bạch, hỗ trợ rất nhanh.' },
-];
-
+export interface ProjectRecord {
+  slug: string; name: string; type: string; location: string; completed: string;
+  image: ImageMetadata; summary: string; scope: string[]; approved: boolean;
+}
+// Chỉ thêm công trình có ảnh thật và được phép công bố; không dùng ảnh stock.
+export const projects: ProjectRecord[] = [];
+export const publishedProjects = projects.filter((p) => p.approved);
 export const faqs = [
-  { q: 'Lắp đặt nhà thông minh chi phí khoảng bao nhiêu?', a: 'Chi phí phụ thuộc diện tích và số thiết bị. Một căn hộ 2 phòng ngủ với công tắc, khóa cửa và rèm thường từ vài chục triệu đồng. 3tsmart khảo sát và báo giá chi tiết miễn phí, bạn có thể bắt đầu từ vài thiết bị rồi mở rộng dần.' },
-  { q: 'Nhà cũ đang ở có lắp được không? Có phải đục tường không?', a: 'Được. Phần lớn công tắc thông minh thay trực tiếp vào đế âm tường cũ, thiết bị không dây như cảm biến, rèm, điều khiển hồng ngoại không cần đi dây mới, nên hầu như không phải đục phá.' },
-  { q: 'Thiết bị có tương thích Google Home, Alexa, Apple Home không?', a: 'Đa số thiết bị chúng tôi cung cấp tương thích Google Home và Amazon Alexa; nhiều dòng hỗ trợ Apple Home hoặc chuẩn Matter. Chúng tôi sẽ tư vấn đúng hệ sinh thái bạn đang dùng.' },
-  { q: 'Khi mất điện hoặc mất mạng thì sao?', a: 'Khi mất Internet, công tắc vẫn bấm tay bình thường và các kịch bản chạy trên Hub nội bộ vẫn hoạt động. Khi mất điện, khóa cửa dùng pin riêng và có cổng sạc khẩn cấp, camera có thể dùng thêm bộ lưu điện.' },
-  { q: 'Chính sách bảo hành như thế nào?', a: 'Thiết bị được bảo hành chính hãng 12–24 tháng tùy loại, 1 đổi 1 trong 30 ngày đầu nếu lỗi do nhà sản xuất. Phần thi công được bảo hành 12 tháng và hỗ trợ kỹ thuật trọn đời.' },
-  { q: 'Dữ liệu camera và tài khoản có an toàn không?', a: 'Thiết bị dùng kết nối mã hóa, tài khoản đứng tên chủ nhà. Kỹ thuật viên hướng dẫn đổi mật khẩu, bật xác thực 2 lớp và có tùy chọn lưu trữ cục bộ trên thẻ nhớ hoặc đầu ghi.' },
-  { q: 'Bao lâu thì lắp đặt xong?', a: 'Căn hộ thường hoàn thành trong 1 ngày; nhà phố, biệt thự từ 2–5 ngày tùy quy mô. Lịch thi công được thống nhất trước và linh hoạt theo thời gian của gia đình.' },
-  { q: 'Tôi là đại lý / nhà thầu, có chính sách chiết khấu không?', a: 'Có. 3tsmart có chính sách giá đại lý, chiết khấu theo dự án và hỗ trợ kỹ thuật cho thợ điện, kiến trúc sư, nhà thầu. Vui lòng để lại thông tin để nhận bảng giá.' },
+  { q: 'Tôi muốn mua một thiết bị, không lắp cả nhà, có được không?', a: 'Bạn có thể bắt đầu từ một nhóm thiết bị. Gửi model hoặc nhu cầu qua Zalo, email hoặc hotline để trao đổi lựa chọn và báo giá. Khả năng mở rộng cần kiểm tra theo hệ sinh thái của thiết bị.' },
+  { q: 'Cần chuẩn bị gì để nhận tư vấn?', a: 'Ảnh hiện trạng hoặc bản vẽ, khu vực muốn lắp và ngân sách dự kiến là điểm bắt đầu tốt. Với khóa cửa cần ảnh cạnh cửa; với công tắc cần kiểm tra dây điện; với rèm cần kích thước ô cửa.' },
+  { q: 'Nhà đang ở có lắp được không?', a: 'Tùy hiện trạng và thiết bị được chọn. Cần kiểm tra dây trung tính, tải điện, đế âm và vùng phủ sóng trước khi xác nhận có cần cải tạo hay không.' },
+  { q: 'Thiết bị nào dùng được với Apple Home, Google Home hay Alexa?', a: 'Khả năng tương thích phụ thuộc model, phiên bản và hub đi kèm. Hãy cho biết hệ sinh thái bạn đang dùng để kiểm tra đúng cấu hình; không phải mọi thiết bị đều tương thích với mọi nền tảng.' },
+  { q: 'Giá và bảo hành được xác nhận thế nào?', a: 'Báo giá cần ghi rõ model, số lượng, phụ kiện, chi phí lắp đặt và điều kiện bảo hành. Giá cuối cùng và thời hạn bảo hành được xác nhận theo thiết bị và phương án cụ thể.' },
 ];
-
 export const projectTypes = ['Căn hộ chung cư', 'Nhà phố', 'Biệt thự', 'Khách sạn / Văn phòng', 'Cửa hàng / Đại lý', 'Khác'];

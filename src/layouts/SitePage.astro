@@ -1,0 +1,17 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Floating from '../components/Floating.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+interface Props { title?: string; description?: string; home?: boolean }
+const { title, description, home = false } = Astro.props;
+---
+<Layout title={title} description={description} path={Astro.url.pathname} schema={home}>
+  <Header />
+  <main id="main" class:list={{ 'page-content': !home }}><slot /></main>
+  <Footer />
+  <Floating />
+  <CookieBanner />
+</Layout>
+<script>import '../scripts/main';</script>
