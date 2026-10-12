@@ -38,6 +38,19 @@ function htmlFiles(dir) {
 }
 const pages = htmlFiles(dist).map((file) => ({ file, html: readFileSync(file, 'utf8') }));
 
+test('Cloudflare previews use compiled static assets and clean multipage routes', () => {
+  const config = JSON.parse(readFileSync(new URL('../wrangler.json', import.meta.url), 'utf8'));
+  assert.equal(config.name, '3tsmart');
+  assert.deepEqual(config.previews, {});
+  assert.match(config.compatibility_date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(config.assets.directory, './dist');
+  assert.equal(config.assets.html_handling, 'drop-trailing-slash');
+  assert.equal(config.assets.not_found_handling, '404-page');
+  assert.equal(config.main, undefined);
+  assert.ok(existsSync(join(dist, 'index.html')));
+  assert.ok(existsSync(join(dist, '404.html')));
+});
+
 test('all business routes build with unique canonical URLs and working internal links', () => {
   assert.ok(pages.length >= 26, 'Run npm run build before npm test');
   const canonicals = new Set();

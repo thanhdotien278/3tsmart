@@ -65,6 +65,9 @@ Tên pháp lý, giờ mở cửa và kênh xã hội chưa xác nhận để tr�
 - Vercel: import repo, build `npm run build`, output `dist`. `vercel.json` bật clean URLs.
 - Apache/cPanel: upload **nội dung** `dist/` vào `public_html`, gồm `.htaccess`.
 - Netlify/Cloudflare Pages: build như trên; giữ `public/_headers`.
+- Cloudflare Workers Builds (hosting hiện tại): build `npm run build`; production deploy `npx wrangler deploy`; preview deploy `npx wrangler preview`. `wrangler.json` khai báo Worker `3tsmart`, static assets từ `dist/` và `previews: {}` bắt buộc cho lệnh preview. Không cần thêm Worker script hay Astro server adapter. Giữ `drop-trailing-slash` cho URL sạch và `404-page` để trang không tồn tại trả HTTP 404, không trả trang chủ.
+- Kiểm tra cấu hình mà không publish: build xong chạy `npx wrangler deploy --dry-run`. CLI và các lệnh publish cần môi trường Cloudflare phù hợp; không đặt API token trong repo.
+- Wrangler 4.149.0 (phiên bản trong log hosting) yêu cầu Node.js 22+. Cloudflare hiện chạy Node.js 24; khi dùng CLI cục bộ, dùng Node.js 22+ dù riêng Astro có thể build với Node.js 20.19+.
 - Biến môi trường được đóng vào build; thay biến hoặc dữ liệu cần rebuild/redeploy.
 - Ảnh chia sẻ: chạy `node scripts/generate-og.mjs` rồi build lại khi đổi thiết kế OG.
 
